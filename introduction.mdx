@@ -1,0 +1,57 @@
+---
+title: "What is Tram?"
+description: "Learn what Tram is, what you can build with it, and what you need before installing this open-source AI agent CLI tool for your terminal."
+---
+
+Tram is an open-source AI agent that runs directly in your terminal. You install it once globally via npm, point it at a project directory, and interact with it through a live session or a single one-line command. Tram connects to an AI model using your API key and works alongside you in the environment where you already spend most of your time — the terminal.
+
+## What Tram does
+
+Tram is designed to make software development faster by giving you an intelligent assistant that understands your project. You can use it to:
+
+- **Understand large codebases** — ask Tram to explain unfamiliar files, trace how a feature works, or summarize the structure of a project you've just inherited
+- **Automate repetitive dev tasks** — delegate work like writing boilerplate, refactoring patterns across files, or generating documentation
+- **Accelerate development** — get answers and working code without leaving your terminal or switching to a browser
+
+## How it works
+
+Run `tram` to open an interactive session, or pass a prompt directly with the `-p` flag:
+
+```bash
+tram -p "Explain this project's structure"
+```
+
+On first run, Tram walks you through a short configuration to set up your API key. After that, every subsequent session connects automatically to your chosen AI model provider and begins assisting you in your terminal.
+
+## Key features
+
+<CardGroup cols={2}>
+  <Card title="Interactive mode" icon="terminal">
+    Open a live conversation in your terminal and work through problems step by step with an AI agent.
+  </Card>
+  <Card title="Headless mode" icon="bolt">
+    Pass a prompt with the `-p` flag to run Tram non-interactively — useful for scripts and automation.
+  </Card>
+  <Card title="Codebase exploration" icon="magnifying-glass-code">
+    Ask Tram to explain, summarize, or navigate any part of your code without leaving the terminal.
+  </Card>
+  <Card title="Task automation" icon="gears">
+    Delegate repetitive development work and review the output before applying it to your project.
+  </Card>
+</CardGroup>
+
+## Requirements
+
+Before you install Tram, confirm you have the following:
+
+- **Node.js 20 or later** — Tram requires Node.js 20+. Run `node --version` to check.
+- **npm** — included with Node.js and used to install the Tram CLI globally.
+
+## Open-source heritage
+
+Tram is built on and acknowledges two excellent open-source projects:
+
+- [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) by Alibaba's Qwen team
+- [Gemini CLI](https://github.com/google-gemini/gemini-cli) by Google
+
+Tram modifies and extends these projects to deliver its terminal-native AI agent experience.

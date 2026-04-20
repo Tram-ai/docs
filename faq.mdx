@@ -1,0 +1,64 @@
+---
+title: "Tram FAQ: common questions about the AI terminal agent"
+description: "Answers to common questions about Tram: cost, data privacy, supported models, CI/CD usage, Node.js requirements, beta status, updating, and uninstalling."
+---
+
+Below are answers to questions that come up frequently among Tram users. If your question is not covered here, visit the [Tram GitHub repository](https://github.com/Tram-ai/tram) to browse open issues or start a discussion.
+
+<AccordionGroup>
+  <Accordion title="Is Tram free?">
+    Yes — the Tram CLI itself is open-source and free to install and use. However, Tram connects to third-party AI model providers to process your requests, and those providers charge for API usage. You are responsible for any costs billed by your chosen provider. Review your provider's pricing before running large or long-running tasks.
+  </Accordion>
+
+  <Accordion title="Does Tram upload my code?">
+    Tram sends your prompts and any relevant code context to your configured AI model provider's API in order to generate responses. This data goes directly to your provider — not to any Tram servers. Tram itself does not store, log, or retain any of your code or prompts. Review your model provider's privacy policy to understand how they handle the data you send.
+  </Accordion>
+
+  <Accordion title="Which AI models does Tram support?">
+    Tram is built on foundations from [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) and [Gemini CLI](https://github.com/google-gemini/gemini-cli), which gives it broad support for a range of AI model providers. You configure your provider and API key during the initial setup when you first run `tram`. To switch providers, re-run the setup prompts at any time.
+  </Accordion>
+
+  <Accordion title="Can I use Tram in CI/CD pipelines?">
+    Yes. Tram supports a headless mode that lets you pass a prompt directly from the command line without starting an interactive session. Use the `-p` flag followed by your task:
+
+    ```bash
+    tram -p "your task"
+    ```
+
+    When using Tram in a CI/CD environment, configure your API key non-interactively by setting it through your pipeline's secret management system rather than relying on the interactive setup prompt.
+  </Accordion>
+
+  <Accordion title="What Node.js version do I need?">
+    Tram requires Node.js 20 or later. To check your current version, run:
+
+    ```bash
+    node --version
+    ```
+
+    If you are on an older version, upgrade using [nvm](https://github.com/nvm-sh/nvm) or by downloading the latest LTS release from [nodejs.org](https://nodejs.org/).
+  </Accordion>
+
+  <Accordion title="Is Tram production-ready?">
+    Tram is currently in beta. It is actively developed and suitable for daily use, but you may encounter bugs or breaking changes between releases. Keep this in mind when integrating Tram into critical workflows, and update regularly to get the latest fixes. If you run into issues, report them on the [GitHub issue tracker](https://github.com/Tram-ai/tram/issues).
+  </Accordion>
+
+  <Accordion title="How do I update Tram?">
+    Run the following command to update to the latest version:
+
+    ```bash
+    npm install -g @tram-ai/tram@latest
+    ```
+
+    This overwrites your existing installation with the newest release. Your local configuration is preserved.
+  </Accordion>
+
+  <Accordion title="How do I uninstall Tram?">
+    Run the following command to remove Tram from your system:
+
+    ```bash
+    npm uninstall -g @tram-ai/tram
+    ```
+
+    This removes the `tram` binary. Your local configuration files are not removed automatically — delete the Tram configuration directory from your user config folder if you want a clean removal.
+  </Accordion>
+</AccordionGroup>

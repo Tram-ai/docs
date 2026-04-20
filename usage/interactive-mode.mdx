@@ -1,0 +1,51 @@
+---
+title: "Interactive mode — live terminal sessions"
+description: "Start a live back-and-forth session with Tram in your terminal. Ask questions, explore code, and get responses — all without leaving the command line."
+---
+
+Interactive mode is the default way to use Tram. When you run `tram` from your terminal, it opens a REPL-like session where you type prompts and receive responses from the AI agent in real time. There's no browser, no dashboard — just your terminal and your code.
+
+## Starting a session
+
+Run `tram` from any directory to begin:
+
+```bash
+tram
+```
+
+On your first run, Tram will walk you through authentication setup before entering the interactive session. Once configured, subsequent runs drop you straight into the prompt.
+
+## What an interactive session looks like
+
+After startup, Tram displays a prompt where you type your question or instruction and press Enter. Here's a short example session:
+
+```
+> Explain the overall structure of this project
+
+This project is organized into three main areas: a CLI entry point that handles
+argument parsing and session setup, a core agent module that manages conversation
+state and tool use, and a set of utilities for reading and summarizing files.
+The main entry point is in src/index.ts.
+
+> What is the purpose of the core agent module?
+
+The core agent module coordinates communication between your prompts and the
+configured AI model provider. It maintains conversation history across turns
+and handles retries and error recovery when the provider returns an error.
+
+> exit
+```
+
+## Exiting a session
+
+Type `exit` or `quit` at the prompt, or press `Ctrl+C`, to end the session and return to your shell.
+
+## Tips for effective use
+
+- **Be specific in your prompts.** Instead of "explain this project", try "explain how data flows from the API route to the database in src/routes/users.ts". Specific prompts produce more useful answers.
+- **Reference names directly.** Mention file names, function names, or class names when you know them — Tram uses that context to give more precise answers.
+- **Ask follow-up questions.** Interactive mode keeps the conversation going, so you can refine or dig deeper without starting over.
+
+<Tip>
+  Run `tram` from your project's root directory. Tram reads files relative to your current working directory, so starting from the root gives it the widest view of your codebase.
+</Tip>

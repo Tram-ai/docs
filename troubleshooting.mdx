@@ -1,0 +1,136 @@
+---
+title: "Troubleshoot common Tram installation and usage issues"
+description: "Fix the most common Tram problems: command not found, Node.js version errors, API key rejections, hangs, permission errors, and slow responses."
+---
+
+Here are solutions to the most common issues you may encounter when installing or running Tram. Work through the relevant section below to resolve your problem quickly.
+
+<AccordionGroup>
+  <Accordion title='"tram: command not found"'>
+    This error means the directory where npm installs global binaries is not included in your system's `PATH`. After running `npm install -g @tram-ai/tram@latest`, your shell cannot locate the `tram` executable.
+
+    **Find your npm global bin directory:**
+
+    ```bash
+    npm bin -g
+    ```
+
+    Then add that directory to your `PATH`.
+
+    **macOS and Linux:**
+
+    Add the following line to your shell profile file (`~/.bashrc`, `~/.zshrc`, or equivalent), replacing the path with the output from the command above:
+
+    ```bash
+    export PATH="$PATH:$(npm bin -g)"
+    ```
+
+    Reload your shell profile:
+
+    ```bash
+    source ~/.zshrc
+    ```
+
+    **Windows:**
+
+    Open **System Properties** > **Environment Variables** and add the npm global bin path (typically `%APPDATA%\npm`) to your `Path` variable. Then restart your terminal.
+  </Accordion>
+
+  <Accordion title="Node.js version error">
+    Tram requires Node.js 20 or later. If you see an error about an unsupported Node.js version, check what version you have installed:
+
+    ```bash
+    node --version
+    ```
+
+    If the output is below `v20.0.0`, upgrade Node.js using one of the following methods:
+
+    **Using nvm (recommended):**
+
+    ```bash
+    nvm install 20
+    nvm use 20
+    ```
+
+    **Direct install:**
+
+    Download and install the latest LTS release from [nodejs.org](https://nodejs.org/).
+
+    After upgrading, confirm the version and reinstall Tram:
+
+    ```bash
+    node --version
+    npm install -g @tram-ai/tram@latest
+    ```
+  </Accordion>
+
+  <Accordion title="Authentication error / API key rejected">
+    If Tram reports an authentication error or says your API key is invalid, the key you provided during setup may be incorrect, expired, or have insufficient permissions.
+
+    To fix this:
+
+    1. Log in to your AI model provider's dashboard and verify that your API key is active and has not expired.
+    2. Copy the key exactly — avoid trailing spaces or missing characters.
+    3. Re-run the Tram setup to replace the stored key:
+
+    ```bash
+    tram
+    ```
+
+    Follow the prompts to enter your corrected API key.
+  </Accordion>
+
+  <Accordion title="Tram hangs or doesn't respond">
+    If Tram starts but appears to freeze or never returns a response, work through the following checks:
+
+    1. **Check your internet connection** — Tram must be able to reach your model provider's API over the network.
+    2. **Check your provider's status page** — your model provider may be experiencing an outage or degraded performance.
+    3. **Interrupt and restart** — press `Ctrl+C` to stop the current session and run `tram` again.
+
+    ```bash
+    tram
+    ```
+
+    If the issue persists, try switching to a different model provider to determine whether the problem is provider-specific.
+  </Accordion>
+
+  <Accordion title="Permission errors during install">
+    If you see a permissions error when running `npm install -g @tram-ai/tram@latest`, do not re-run the command with `sudo`. Using `sudo` with npm can cause file ownership issues that are difficult to reverse.
+
+    Instead, fix your npm permissions using one of these approaches:
+
+    **Option 1 — Use nvm (recommended):**
+
+    Install nvm and use it to manage your Node.js installation. nvm installs Node.js and npm in your home directory, so global installs never require elevated permissions.
+
+    **Option 2 — Change the npm global directory:**
+
+    Configure npm to use a directory inside your home folder:
+
+    ```bash
+    mkdir -p ~/.npm-global
+    npm config set prefix '~/.npm-global'
+    export PATH="$PATH:$HOME/.npm-global/bin"
+    ```
+
+    Add the `export` line to your shell profile file so it persists across sessions, then retry the install.
+  </Accordion>
+
+  <Accordion title="Slow responses">
+    Response speed depends primarily on your model provider and the model you have selected. If responses feel slow, consider the following:
+
+    - **Switch to a faster model** — larger models take longer to generate responses. Try a smaller or faster model variant from your provider for routine queries.
+    - **Check your network latency** — a slow or unstable connection increases round-trip time to the provider's API.
+    - **Check provider load** — some providers have variable response times depending on demand. Consult your provider's status page if slowness is persistent.
+
+    To change your model, re-run Tram setup and select a different option when prompted:
+
+    ```bash
+    tram
+    ```
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  If you encounter a bug not covered here, report it on the [Tram GitHub issue tracker](https://github.com/Tram-ai/tram/issues). Include your Node.js version, your operating system, and the exact error message or behavior you observed.
+</Note>

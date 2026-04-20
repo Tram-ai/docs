@@ -1,0 +1,36 @@
+---
+title: "Choose an AI model for Tram: setup and best practices"
+description: "Tram supports multiple AI providers thanks to its Qwen Code and Gemini CLI foundations. Learn how to select a model and pick the right one for your task."
+---
+
+Tram connects to AI model providers using the API key you supply during setup. When you run `tram` for the first time, you choose which model provider to use and Tram stores that choice in your local configuration. You can change your model selection at any time by re-running the setup prompts.
+
+## Broad model support
+
+Tram is built on foundations from [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) and [Gemini CLI](https://github.com/google-gemini/gemini-cli), giving it broad support for a range of AI model providers. This means you are not locked into a single provider — you can configure Tram to use whichever model best fits your workflow and budget.
+
+## Selecting a model during setup
+
+When you run `tram` for the first time, the setup prompts ask you to choose a model provider and supply the corresponding API key. Follow the prompts to complete the selection.
+
+```bash
+tram
+```
+
+To switch to a different model, run `tram` again and follow the setup prompts. Tram will update your saved configuration with the new model choice.
+
+## Choosing the right model for your task
+
+Different tasks benefit from different models. Use the following guidance to inform your choice:
+
+- **Large codebase exploration** — use a model with a large context window so Tram can hold more of your codebase in context at once. This produces more accurate, coherent results when working across many files.
+- **Quick queries and single-file tasks** — smaller, faster models respond more quickly and cost less per request, making them a good choice for targeted questions or simple edits.
+- **Automated pipelines** — for headless mode use cases, prioritize reliability and speed over raw context size.
+
+<Tip>
+  When exploring a large codebase, choose a model with a long context window. A larger context window lets Tram read and reason about more files at once, which significantly improves the quality of explanations, summaries, and refactoring suggestions across a big project.
+</Tip>
+
+<Note>
+  Tram does not cover API usage costs on your behalf. You are responsible for any charges billed by your chosen model provider. Review your provider's pricing before running large or long-running tasks.
+</Note>

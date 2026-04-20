@@ -1,0 +1,60 @@
+---
+title: "Tram: AI agent for your terminal"
+description: "Tram is an open-source AI agent for your terminal. Understand large codebases, automate repetitive tasks, and ship faster without leaving the command line."
+---
+
+Tram brings a powerful AI agent directly to your terminal. Install it once with npm, then ask it anything about your codebase, delegate repetitive tasks, or run it in headless mode as part of your scripts and workflows. No browser required.
+
+<CardGroup cols={2}>
+  <Card title="Quick Start" icon="rocket" href="/quickstart">
+    Install Tram and run your first session in under two minutes.
+  </Card>
+  <Card title="Authentication" icon="key" href="/authentication">
+    Configure your API key to connect Tram to an AI model provider.
+  </Card>
+  <Card title="Interactive Mode" icon="terminal" href="/usage/interactive-mode">
+    Start a live conversation with Tram in your terminal.
+  </Card>
+  <Card title="Headless Mode" icon="bolt" href="/usage/headless-mode">
+    Run Tram non-interactively with the <code>-p</code> flag for scripting and automation.
+  </Card>
+</CardGroup>
+
+## What you can do with Tram
+
+Tram is designed to speed up software development by giving you an intelligent assistant that understands your project's code.
+
+<Steps>
+  <Step title="Install Tram">
+    Install the CLI globally with a single npm command. Requires Node.js 20 or later.
+
+    ```bash
+    npm install -g @tram-ai/tram@latest
+    ```
+  </Step>
+  <Step title="Configure your AI provider">
+    On first run, Tram will prompt you to supply an API key for your chosen AI model provider. This takes about 30 seconds.
+
+    ```bash
+    tram
+    ```
+  </Step>
+  <Step title="Start exploring">
+    Ask Tram to explain a file, summarize a module, find a bug, or generate code — all from within your existing terminal workflow.
+  </Step>
+</Steps>
+
+<CardGroup cols={2}>
+  <Card title="Codebase Exploration" icon="magnifying-glass-code" href="/usage/codebase-exploration">
+    Ask Tram to explain, summarize, or navigate any part of your codebase.
+  </Card>
+  <Card title="Task Automation" icon="gears" href="/usage/task-automation">
+    Delegate repetitive development tasks to Tram and review the results.
+  </Card>
+  <Card title="Configuration" icon="sliders" href="/configuration/overview">
+    Customize Tram's behavior, model selection, and session defaults.
+  </Card>
+  <Card title="Troubleshooting" icon="circle-question" href="/troubleshooting">
+    Resolve common issues with installation, authentication, and usage.
+  </Card>
+</CardGroup>

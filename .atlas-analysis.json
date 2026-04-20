@@ -1,0 +1,62 @@
+{
+  "projectType": "cli-tool",
+  "projectName": "Tram",
+  "projectDescription": "An open-source AI agent that lives in your terminal, helping you understand large codebases, automate repetitive tasks, and accelerate development.",
+  "theme": "luma",
+  "primaryColor": "#94cb04",
+  "lightColor": "#545454",
+  "darkColor": null,
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "quickstart",
+              "authentication"
+            ]
+          },
+          {
+            "group": "Usage",
+            "pages": [
+              "usage/interactive-mode",
+              "usage/headless-mode",
+              "usage/codebase-exploration",
+              "usage/task-automation"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "configuration/overview",
+              "configuration/models"
+            ]
+          },
+          {
+            "group": "Help",
+            "pages": [
+              "troubleshooting",
+              "faq"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "Interactive terminal AI agent session",
+    "Headless (non-interactive) mode via -p flag",
+    "Large codebase understanding and navigation",
+    "Task automation for repetitive development work",
+    "Installed globally via npm — no project setup required",
+    "Node.js 20+ compatible"
+  ],
+  "publicApiSurface": [
+    "tram (interactive session)",
+    "tram -p \"<prompt>\" (headless mode)",
+    "npm install -g @tram-ai/tram"
+  ]
+}
