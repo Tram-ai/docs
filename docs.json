@@ -67,7 +67,34 @@
         "groups": [
           {
             "group": "入门指南",
-            "pages": ["zh/index", "zh/quickstart"]
+            "pages": ["zh/index", "zh/quickstart", "zh/authentication"]
+          },
+          {
+            "group": "介绍",
+            "pages": ["zh/introduction"]
+          },
+          {
+            "group": "使用指南",
+            "pages": [
+              "zh/usage/interactive-mode",
+              "zh/usage/headless-mode",
+              "zh/usage/codebase-exploration",
+              "zh/usage/task-automation"
+            ]
+          },
+          {
+            "group": "配置",
+            "pages": [
+              "zh/configuration/overview",
+              "zh/configuration/models"
+            ]
+          },
+          {
+            "group": "帮助",
+            "pages": [
+              "zh/troubleshooting",
+              "zh/faq"
+            ]
           }
         ]
       }
