@@ -1,0 +1,117 @@
+---
+title: "扩展管理"
+description: "使用扩展来增强 Tram 的功能，安装、管理和创建自定义扩展。"
+---
+
+Tram 支持扩展系统，允许你通过安装扩展来增强智能体的能力。
+
+## 什么是扩展
+
+扩展是 Tram 的插件，可以：
+
+- 添加新的命令和功能
+- 集成外部服务和工具
+- 自定义智能体的行为
+- 添加对新消息通道的支持
+
+## 扩展命令
+
+Tram 提供以下扩展管理命令：
+
+### 列出已安装的扩展
+
+```bash
+tram extensions list
+```
+
+查看所有已安装的扩展及其状态。
+
+### 安装扩展
+
+```bash
+tram extensions install <extension-name>
+```
+
+从扩展仓库安装指定的扩展。
+
+### 卸载扩展
+
+```bash
+tram extensions uninstall <extension-name>
+```
+
+移除已安装的扩展。
+
+### 更新扩展
+
+```bash
+tram extensions update <extension-name>
+```
+
+更新扩展到最新版本。
+
+### 启用/禁用扩展
+
+```bash
+# 启用扩展
+tram extensions enable <extension-name>
+
+# 禁用扩展
+tram extensions disable <extension-name>
+```
+
+### 链接本地扩展
+
+```bash
+tram extensions link <path-to-extension>
+```
+
+用于开发扩展时，将本地扩展目录链接到 Tram。
+
+### 创建新扩展
+
+```bash
+tram extensions new <extension-name>
+```
+
+创建一个新的扩展模板，用于开始开发自己的扩展。
+
+### 扩展设置
+
+```bash
+tram extensions settings <extension-name>
+```
+
+配置指定扩展的设置。
+
+## 在交互模式中使用扩展
+
+在交互模式中，你可以使用 `/extensions` 命令来管理扩展，或者使用简写 `/ext`。
+
+## 扩展配置文件
+
+扩展使用 `qwen-extension.json` 文件来描述其功能和配置。
+
+## 开发自己的扩展
+
+1. 创建扩展模板：
+   ```bash
+   tram extensions new my-extension
+   ```
+
+2. 编辑扩展代码和配置。
+
+3. 链接到 Tram 进行测试：
+   ```bash
+   tram extensions link ./my-extension
+   ```
+
+4. 在 Tram 中测试你的扩展。
+
+<Tip>
+  使用 `tram extensions list` 查看所有已安装的扩展及其状态。已禁用的扩展会标记为 "disabled"。
+</Tip>
+
+<Note>
+  只从可信来源安装扩展。扩展可以访问你的项目文件和配置，请确保你了解扩展的功能。
+</Note>

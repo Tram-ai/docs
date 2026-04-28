@@ -1,0 +1,88 @@
+---
+title: "MCP 服务器管理"
+description: "使用 Model Context Protocol (MCP) 扩展 Tram 的能力，连接外部工具和数据源。"
+---
+
+Tram 支持 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)，允许你连接外部工具和数据源，扩展 AI 智能体的能力。
+
+## 什么是 MCP
+
+MCP 是一个开放协议，用于标准化 AI 应用与外部工具、数据源之间的通信。通过 MCP，Tram 可以：
+
+- 访问外部 API 和服务
+- 读取本地或远程数据源
+- 使用专门的工具来完成任务
+
+## MCP 命令
+
+Tram 提供以下 MCP 服务器管理命令：
+
+### 添加 MCP 服务器
+
+```bash
+tram mcp add <server-name> --command "node path/to/server.js"
+```
+
+添加一个 MCP 服务器。你需要指定服务器名称和启动命令。
+
+示例：
+
+```bash
+tram mcp add filesystem --command "npx -y @modelcontextprotocol/server-filesystem /path/to/allowed/dir"
+```
+
+### 列出已配置的 MCP 服务器
+
+```bash
+tram mcp list
+```
+
+查看所有已配置的 MCP 服务器及其状态。
+
+### 移除 MCP 服务器
+
+```bash
+tram mcp remove <server-name>
+```
+
+从配置中移除指定的 MCP 服务器。
+
+### 重新连接 MCP 服务器
+
+```bash
+tram mcp reconnect <server-name>
+```
+
+重新连接指定的 MCP 服务器，用于服务器断开或更新配置后。
+
+## 在交互模式中使用 MCP
+
+在交互模式中，MCP 服务器会自动连接并提供工具给智能体使用。你可以：
+
+1. 启动 Tram 交互模式：
+   ```bash
+   tram
+   ```
+
+2. 智能体会自动发现和使用已配置的 MCP 服务器提供的工具。
+
+## 常用 MCP 服务器
+
+以下是一些常用的 MCP 服务器：
+
+- **Filesystem** — 提供文件系统访问能力
+- **Web Fetch** — 获取网页内容
+- **Database** — 连接和操作数据库
+- **Git** — Git 仓库操作
+
+## 配置示例
+
+MCP 服务器配置存储在 Tram 的配置文件中。你可以通过编辑配置文件或命令行工具来管理。
+
+<Tip>
+  添加 MCP 服务器后，重启 Tram 会话以使更改生效。
+</Tip>
+
+<Note>
+  确保你信任并了解 MCP 服务器的功能。某些服务器可能需要额外的权限或访问敏感数据。
+</Note>

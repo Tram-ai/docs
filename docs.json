@@ -64,13 +64,18 @@
             "group": "介绍",
             "pages": ["introduction"]
           },
-          {
+           {
             "group": "使用指南",
             "pages": [
               "usage/interactive-mode",
               "usage/headless-mode",
               "usage/codebase-exploration",
-              "usage/task-automation"
+              "usage/task-automation",
+              "usage/arena",
+              "usage/channels",
+              "usage/mcp",
+              "usage/extensions",
+              "usage/hooks"
             ]
           },
           {
@@ -102,7 +107,12 @@
               "en/usage/interactive-mode",
               "en/usage/headless-mode",
               "en/usage/codebase-exploration",
-              "en/usage/task-automation"
+              "en/usage/task-automation",
+              "en/usage/arena",
+              "en/usage/channels",
+              "en/usage/mcp",
+              "en/usage/extensions",
+              "en/usage/hooks"
             ]
           },
           {

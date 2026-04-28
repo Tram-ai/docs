@@ -1,0 +1,105 @@
+---
+title: "Messaging Channel Integration"
+description: "Connect Tram to messaging platforms like Telegram and Discord to interact with AI agents through chat interfaces."
+---
+
+Tram supports connecting to various chat platforms through messaging channels (Channel), allowing you to interact with AI agents through familiar chat interfaces.
+
+## Supported Channels
+
+Tram supports multiple messaging platforms, including but not limited to:
+
+- **Telegram** — Interact with Tram through Telegram Bot
+- **Discord** — Integrate Tram into your Discord server
+- **Other Platforms** — Support for more platforms through extensions
+
+## Channel Commands
+
+Tram provides the following channel management commands:
+
+### Initialize Channel
+
+```bash
+tram channel initialize
+```
+
+Initialize channel configuration, setting up necessary credentials and parameters.
+
+### Start Channel Service
+
+```bash
+tram channel start
+```
+
+Start the channel service to begin receiving requests from messaging platforms.
+
+### Stop Channel Service
+
+```bash
+tram channel stop
+```
+
+Stop the channel service.
+
+### Check Channel Status
+
+```bash
+tram channel status
+```
+
+View the current running status of the channel service.
+
+### Configure Channel
+
+```bash
+tram channel configure
+```
+
+Configure channel parameters such as API keys, Webhook URLs, etc.
+
+### Manage Pairing Requests
+
+```bash
+# List all pairing requests
+tram channel pairing list
+
+# Approve pairing request
+tram channel pairing approve <request-id>
+```
+
+## Telegram Channel Setup
+
+1. Create Telegram Bot:
+   - Talk to [@BotFather](https://t.me/BotFather)
+   - Send `/newbot` and follow the prompts
+   - Get the Bot Token
+
+2. Configure Tram:
+   ```bash
+   tram channel configure
+   ```
+   Enter your Telegram Bot Token.
+
+3. Start the channel:
+   ```bash
+   tram channel start
+   ```
+
+4. Chat with your Bot in Telegram and start using Tram.
+
+## Discord Channel Setup
+
+1. Create Discord Bot:
+   - Visit [Discord Developer Portal](https://discord.com/developers/)
+   - Create a new application and add a Bot
+   - Get the Bot Token and invite the Bot to your server
+
+2. Configure and start the Tram channel service.
+
+<Tip>
+  When the channel service is running, Tram will listen for messages in the background. You can check the service status with `tram channel status`.
+</Tip>
+
+<Note>
+  The channel feature requires valid API keys and corresponding platform credentials. Keep your Bot Token and configuration files secure.
+</Note>

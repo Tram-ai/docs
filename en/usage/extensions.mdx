@@ -1,0 +1,117 @@
+---
+title: "Extensions Management"
+description: "Use extensions to enhance Tram's functionality, install, manage, and create custom extensions."
+---
+
+Tram supports an extension system that allows you to enhance your agent's capabilities by installing extensions.
+
+## What are Extensions
+
+Extensions are plugins for Tram that can:
+
+- Add new commands and features
+- Integrate external services and tools
+- Customize agent behavior
+- Add support for new messaging channels
+
+## Extension Commands
+
+Tram provides the following extension management commands:
+
+### List Installed Extensions
+
+```bash
+tram extensions list
+```
+
+View all installed extensions and their status.
+
+### Install Extension
+
+```bash
+tram extensions install <extension-name>
+```
+
+Install a specified extension from the extension repository.
+
+### Uninstall Extension
+
+```bash
+tram extensions uninstall <extension-name>
+```
+
+Remove an installed extension.
+
+### Update Extension
+
+```bash
+tram extensions update <extension-name>
+```
+
+Update an extension to the latest version.
+
+### Enable/Disable Extensions
+
+```bash
+# Enable extension
+tram extensions enable <extension-name>
+
+# Disable extension
+tram extensions disable <extension-name>
+```
+
+### Link Local Extension
+
+```bash
+tram extensions link <path-to-extension>
+```
+
+Used during extension development to link a local extension directory to Tram.
+
+### Create New Extension
+
+```bash
+tram extensions new <extension-name>
+```
+
+Create a new extension template to start developing your own extension.
+
+### Extension Settings
+
+```bash
+tram extensions settings <extension-name>
+```
+
+Configure settings for the specified extension.
+
+## Using Extensions in Interactive Mode
+
+In interactive mode, you can use the `/extensions` command to manage extensions, or the shorthand `/ext`.
+
+## Extension Configuration File
+
+Extensions use the `qwen-extension.json` file to describe their functionality and configuration.
+
+## Developing Your Own Extension
+
+1. Create an extension template:
+   ```bash
+   tram extensions new my-extension
+   ```
+
+2. Edit the extension code and configuration.
+
+3. Link to Tram for testing:
+   ```bash
+   tram extensions link ./my-extension
+   ```
+
+4. Test your extension in Tram.
+
+<Tip>
+  Use `tram extensions list` to view all installed extensions and their status. Disabled extensions are marked as "disabled".
+</Tip>
+
+<Note>
+  Only install extensions from trusted sources. Extensions can access your project files and configuration, so make sure you understand what the extension does.
+</Note>

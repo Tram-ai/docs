@@ -1,0 +1,84 @@
+---
+title: "Hooks Management"
+description: "Use hooks to execute custom scripts when specific events occur in Tram, automating your workflow."
+---
+
+Hooks allow you to execute custom scripts when specific events occur in Tram, enabling workflow automation.
+
+## What are Hooks
+
+Hooks are scripts or commands triggered by Tram at specific events. You can use hooks to:
+
+- Perform pre-processing before tasks begin
+- Execute post-processing after tasks complete
+- Send notifications or log activities
+- Integrate into CI/CD pipelines
+
+## Available Hook Events
+
+Tram supports the following hook events:
+
+- **beforeTask** — Triggered before the agent starts processing a task
+- **afterTask** — Triggered after the agent completes a task
+- **beforeSession** — Triggered before a session starts
+- **afterSession** — Triggered after a session ends
+
+## Using Hooks in Interactive Mode
+
+In interactive mode, use the `/hooks` command to manage hooks:
+
+```
+/hooks
+```
+
+This opens the hooks management interface where you can:
+
+- View configured hooks
+- Add new hooks
+- Edit existing hooks
+- Enable/disable hooks
+
+## Hook Script Examples
+
+Hook scripts can be any executable file. Here are some examples:
+
+### Shell Script Hook
+
+```bash
+#!/bin/bash
+# afterTask.sh - Executed after task completion
+echo "Task completed at $(date)" >> /tmp/tram.log
+```
+
+### Node.js Script Hook
+
+```javascript
+// beforeTask.js
+const fs = require('fs');
+console.log('Starting task...');
+// Perform pre-processing logic
+```
+
+## Configuring Hooks
+
+Hook configurations are stored in Tram's configuration file. Each hook needs to specify:
+
+- **Event Name** — The event that triggers the hook
+- **Command** — The command or script to execute
+- **Working Directory** — Directory to execute the command in (optional)
+- **Environment Variables** — Environment variables passed to the command (optional)
+
+## Usage Tips
+
+- **Logging** — Use hooks to log task execution history
+- **Notifications** — Send notifications when long-running tasks complete
+- **Automated Testing** — Automatically run tests after code generation
+- **Deployment** — Trigger deployment pipelines after task completion
+
+<Tip>
+  Hook scripts should execute quickly and return proper exit codes. Long-running hooks may block Tram's execution.
+</Tip>
+
+<Note>
+  Hook scripts execute with your user permissions. Make sure scripts are from trusted sources and don't perform dangerous operations.
+</Note>

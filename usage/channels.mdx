@@ -1,0 +1,105 @@
+---
+title: "消息通道集成"
+description: "将 Tram 连接到 Telegram、Discord 等消息平台，通过聊天界面与 AI 智能体交互。"
+---
+
+Tram 支持通过消息通道（Channel）连接到各种聊天平台，让你可以通过熟悉的聊天界面与 AI 智能体交互。
+
+## 支持的通道
+
+Tram 支持多种消息平台，包括但不限于：
+
+- **Telegram** — 通过 Telegram Bot 与 Tram 交互
+- **Discord** — 将 Tram 集成到 Discord 服务器
+- **其他平台** — 通过扩展支持更多平台
+
+## 通道命令
+
+Tram 提供以下通道管理命令：
+
+### 初始化通道
+
+```bash
+tram channel initialize
+```
+
+初始化通道配置，设置必要的凭证和参数。
+
+### 启动通道服务
+
+```bash
+tram channel start
+```
+
+启动通道服务，开始接收来自消息平台的请求。
+
+### 停止通道服务
+
+```bash
+tram channel stop
+```
+
+停止通道服务。
+
+### 查看通道状态
+
+```bash
+tram channel status
+```
+
+查看当前通道服务的运行状态。
+
+### 配置通道
+
+```bash
+tram channel configure
+```
+
+配置通道参数，如 API 密钥、Webhook URL 等。
+
+### 管理配对请求
+
+```bash
+# 列出所有配对请求
+tram channel pairing list
+
+# 批准配对请求
+tram channel pairing approve <request-id>
+```
+
+## Telegram 通道设置
+
+1. 创建 Telegram Bot：
+   - 与 [@BotFather](https://t.me/BotFather) 对话
+   - 发送 `/newbot` 并按照提示操作
+   - 获取 Bot Token
+
+2. 配置 Tram：
+   ```bash
+   tram channel configure
+   ```
+   输入你的 Telegram Bot Token。
+
+3. 启动通道：
+   ```bash
+   tram channel start
+   ```
+
+4. 在 Telegram 中与你的 Bot 对话，开始使用 Tram。
+
+## Discord 通道设置
+
+1. 创建 Discord Bot：
+   - 访问 [Discord Developer Portal](https://discord.com/developers/)
+   - 创建新应用并添加 Bot
+   - 获取 Bot Token 并邀请 Bot 到服务器
+
+2. 配置并启动 Tram 通道服务。
+
+<Tip>
+  通道服务运行时，Tram 会在后台监听消息。你可以通过 `tram channel status` 检查服务状态。
+</Tip>
+
+<Note>
+  通道功能需要有效的 API 密钥和相应的平台凭证。请妥善保管你的 Bot Token 和配置文件。
+</Note>

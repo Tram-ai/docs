@@ -1,0 +1,88 @@
+---
+title: "MCP Server Management"
+description: "Extend Tram's capabilities using Model Context Protocol (MCP) to connect external tools and data sources."
+---
+
+Tram supports [Model Context Protocol (MCP)](https://modelcontextprotocol.io/), allowing you to connect external tools and data sources to extend your AI agent's capabilities.
+
+## What is MCP
+
+MCP is an open protocol for standardizing communication between AI applications and external tools/data sources. Through MCP, Tram can:
+
+- Access external APIs and services
+- Read from local or remote data sources
+- Use specialized tools to complete tasks
+
+## MCP Commands
+
+Tram provides the following MCP server management commands:
+
+### Add MCP Server
+
+```bash
+tram mcp add <server-name> --command "node path/to/server.js"
+```
+
+Add an MCP server. You need to specify the server name and startup command.
+
+Example:
+
+```bash
+tram mcp add filesystem --command "npx -y @modelcontextprotocol/server-filesystem /path/to/allowed/dir"
+```
+
+### List Configured MCP Servers
+
+```bash
+tram mcp list
+```
+
+View all configured MCP servers and their status.
+
+### Remove MCP Server
+
+```bash
+tram mcp remove <server-name>
+```
+
+Remove the specified MCP server from configuration.
+
+### Reconnect MCP Server
+
+```bash
+tram mcp reconnect <server-name>
+```
+
+Reconnect to the specified MCP server, useful after server disconnection or configuration update.
+
+## Using MCP in Interactive Mode
+
+In interactive mode, MCP servers automatically connect and provide tools for the agent to use. You can:
+
+1. Start Tram interactive mode:
+   ```bash
+   tram
+   ```
+
+2. The agent will automatically discover and use tools provided by configured MCP servers.
+
+## Common MCP Servers
+
+Here are some commonly used MCP servers:
+
+- **Filesystem** — Provides file system access capabilities
+- **Web Fetch** — Fetch web page content
+- **Database** — Connect and operate databases
+- **Git** — Git repository operations
+
+## Configuration Example
+
+MCP server configurations are stored in Tram's configuration file. You can manage them through the command-line tool or by editing the configuration file directly.
+
+<Tip>
+  After adding an MCP server, restart the Tram session for changes to take effect.
+</Tip>
+
+<Note>
+  Make sure you trust and understand the functionality of MCP servers. Some servers may require additional permissions or access to sensitive data.
+</Note>

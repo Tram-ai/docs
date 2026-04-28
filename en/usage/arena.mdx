@@ -1,0 +1,62 @@
+---
+title: "Arena Multi-Agent Collaboration"
+description: "Use the Arena feature to run multiple AI agents simultaneously, compare results from different models, and choose the best solution."
+---
+
+Arena is an advanced feature of Tram that allows you to run multiple AI agents simultaneously to process the same task. Each agent works in an isolated Git worktree environment, and you can compare their results to choose the best solution.
+
+## What is Arena
+
+Arena helps you get better results through:
+
+- **Parallel Execution** — Multiple agents process the same task simultaneously
+- **Environment Isolation** — Each agent works in an independent Git worktree, without interfering with each other
+- **Result Comparison** — Visually compare outputs from different agents and choose the solution that best fits your needs
+
+## Starting an Arena Session
+
+In interactive mode, use the `/arena` command to start an Arena session:
+
+```
+/arena Generate a README file for this project
+```
+
+Tram will start multiple agents, each using different configurations or models to process your task.
+
+## How Arena Works
+
+1. **Task Distribution** — The Arena manager receives your task description
+2. **Environment Preparation** — Creates independent Git worktrees for each agent
+3. **Parallel Execution** — Multiple agents process the task simultaneously
+4. **Result Collection** — Arena collects outputs from all agents
+5. **Result Display** — You can view and compare each agent's results
+
+## Arena Events
+
+Arena emits the following events, which you can observe in the UI for progress tracking:
+
+- **Session Started** — Arena session has been initiated
+- **Agent Completed** — An individual agent has completed the task
+- **Session Ended** — All agents have finished their work
+
+## Viewing Arena Status
+
+In interactive mode, Arena displays the status of each agent in real-time:
+
+- **Running** — Agent is processing the task
+- **Completed** — Agent successfully completed the task
+- **Failed** — Agent encountered an error
+
+## Usage Tips
+
+- **Complex Tasks** — Arena is particularly suitable for complex tasks that require comparing multiple solutions
+- **Code Generation** — Let multiple agents generate code with different implementations, then choose the best version
+- **Refactoring Decisions** — Compare different refactoring approaches
+
+<Tip>
+  Arena requires a Git repository to work properly, as it uses Git worktrees to create isolated environments. Make sure your project has been initialized as a Git repository.
+</Tip>
+
+<Note>
+  The Arena feature consumes more API quota since multiple agents process tasks simultaneously. Please monitor your API usage.
+</Note>
