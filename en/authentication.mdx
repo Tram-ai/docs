@@ -1,0 +1,50 @@
+---
+title: "Authenticate with Tram"
+description: "Configure your AI model API key so Tram can connect to a provider. Learn how setup works, where the key is stored, and what to do if auth fails."
+---
+
+Tram connects to an AI model provider on your behalf, so it needs a valid API key to function. You provide this key once during the initial configuration prompt, and Tram stores it locally so you don't have to enter it again in future sessions.
+
+## How authentication works
+
+When you run `tram` for the first time, Tram detects that no key is configured and launches an interactive setup prompt before opening a session. The prompt asks you to enter your API key for your chosen AI model provider. Once you submit it, Tram stores the key on your local machine and uses it automatically from that point forward.
+
+<Warning>
+  Your API key grants access to a paid AI model provider account. Never commit your API key to version control, share it in chat, or include it in publicly visible configuration files. Treat it like a password.
+</Warning>
+
+## Configuring your API key
+
+Run Tram and follow the prompts:
+
+```bash
+tram
+```
+
+When the configuration prompt appears, paste in your API key and press Enter. Tram confirms the key is saved and then opens your session.
+
+<Tip>
+  Generate your API key from your AI model provider's developer dashboard or API settings page. Most providers display the key only once at creation time — copy it before closing the page and store it somewhere safe.
+</Tip>
+
+## Where the key is stored
+
+Tram saves your API key locally on your machine. It is not transmitted anywhere other than to the AI model provider when making requests. The key persists across sessions so you only need to configure it once per machine.
+
+## Supported providers
+
+Tram is built on top of [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) and [Gemini CLI](https://github.com/google-gemini/gemini-cli), both of which support AI model providers. Refer to the Tram configuration documentation or the setup prompt itself for the current list of supported providers.
+
+## If authentication fails
+
+If Tram fails to authenticate or you need to update your key, re-run the configuration by starting a new session:
+
+```bash
+tram
+```
+
+If your key is already stored but invalid, Tram will surface an authentication error when it tries to connect to the provider. In that case:
+
+1. Verify that the key is correct and has not expired or been revoked.
+2. Check your provider's dashboard to confirm the key is active and has sufficient quota.
+3. Re-run `tram` and enter a new key when prompted.

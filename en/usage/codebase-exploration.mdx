@@ -1,0 +1,48 @@
+---
+title: "Explore your codebase with Tram"
+description: "Use Tram to understand large codebases fast. Ask about project structure, trace data flows, locate logic, and get plain-English explanations of unfamiliar code."
+---
+
+One of Tram's primary use cases is helping you navigate and understand large codebases quickly. Instead of manually tracing call stacks or grepping through files, you can ask Tram plain-English questions and get focused, relevant answers — all without leaving your terminal.
+
+## Common exploration prompts
+
+Here are examples of the kinds of questions Tram handles well:
+
+**Understand the overall structure:**
+```
+Explain the overall structure of this project
+```
+
+**Learn what a specific class or service does:**
+```
+What does the `UserService` class do?
+```
+
+**Locate specific logic:**
+```
+Where is the authentication logic handled?
+```
+
+**Trace data flows:**
+```
+Show me how data flows from the API to the database
+```
+
+## Tips for better answers
+
+- **Reference names directly.** Prompts like "What does `src/services/email.ts` do?" give Tram a specific target, which leads to more precise answers than vague questions.
+- **Narrow the scope.** "Explain the error handling in `src/middleware/errors.ts`" is more useful than "Explain all error handling".
+- **Ask follow-up questions.** In interactive mode, you can refine your understanding step by step within a single session.
+
+## How Tram reads your project
+
+Tram works from your current working directory. When you run `tram`, it reads files relative to that directory to answer your questions. You don't need to configure file paths or tell Tram where your project is — it uses your shell's working directory automatically.
+
+<Tip>
+  Run `tram` from your project's root directory. Starting at the root gives Tram access to your full project tree, so it can answer questions that span multiple files or directories.
+</Tip>
+
+<Info>
+  Tram reads your local files to answer questions, but your code is not stored or indexed anywhere. The only transmission of your code is the content included in the API call to your configured AI model provider — the same provider you authenticated with during setup.
+</Info>

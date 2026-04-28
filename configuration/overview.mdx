@@ -1,44 +1,44 @@
 ---
-title: "Configure Tram: API keys, models, and session settings"
-description: "Tram stores configuration locally after first launch. Learn what gets configured, how to update your settings, and where your config file lives."
+title: "配置 Tram：API 密钥、模型和会话设置"
+description: "Tram 在首次启动后将配置存储在本地。了解配置的内容、如何更新设置以及配置文件的存储位置。"
 ---
 
-Tram stores its configuration locally on your machine after your initial setup, so you don't need to reconfigure it on every run. The first time you launch Tram, it walks you through a short setup process where you provide your API key and choose your model provider. From that point on, Tram reads your saved configuration automatically each time it starts.
+Tram 在初始设置后将配置存储在本地计算机上，因此你不需要每次运行时都重新配置。首次启动 Tram 时，它会引导你完成一个简短的设置过程，在此过程中你需要提供 API 密钥并选择模型提供商。此后，Tram 每次启动时都会自动读取已保存的配置。
 
-## Initial setup
+## 初始设置
 
-When you run `tram` for the first time, it detects that no configuration exists and starts an interactive setup prompt. Follow the prompts to supply your API key and select a model provider. Setup takes about 30 seconds.
-
-```bash
-tram
-```
-
-Once setup is complete, Tram saves your configuration to your machine's standard user configuration directory. You do not need to run setup again unless you want to change your settings.
-
-## What gets configured
-
-During setup, Tram collects and stores the following:
-
-- **API key** — your key for authenticating with your chosen AI model provider
-- **Model provider** — the AI service you want Tram to connect to
-- **Session preferences** — any defaults that affect how Tram behaves during a session
-
-## Updating your configuration
-
-To change your API key, switch model providers, or update session preferences, re-run `tram` and follow the setup prompts again. Tram will overwrite your existing configuration with the new values you provide.
+首次运行 `tram` 时，它会检测到没有配置存在，并启动交互式设置提示。按照提示提供你的 API 密钥并选择模型提供商。设置大约需要 30 秒。
 
 ```bash
 tram
 ```
 
-If you prefer to edit the configuration file directly, you can find it in your operating system's standard user configuration directory (for example, `~/.config/tram/` on Linux and macOS).
+设置完成后，Tram 会将配置保存到你计算机的标准用户配置目录中。除非你想更改设置，否则不需要再次运行设置。
+
+## 配置内容
+
+在设置过程中，Tram 收集并存储以下信息：
+
+- **API 密钥** — 用于向所选 AI 模型提供商进行身份验证的密钥
+- **模型提供商** — 你希望 Tram 连接的 AI 服务
+- **会话偏好** — 影响 Tram 在会话期间行为的默认设置
+
+## 更新配置
+
+要更改 API 密钥、切换模型提供商或更新会话偏好，重新运行 `tram` 并再次按照设置提示操作。Tram 会用你提供的新值覆盖现有配置。
+
+```bash
+tram
+```
+
+如果你更喜欢直接编辑配置文件，可以在操作系统的标准用户配置目录中找到它（例如，在 Linux 和 macOS 上为 `~/.config/tram/`）。
 
 <Note>
-  Tram never sends your configuration to any Tram servers. Your API key and preferences are stored only on your local machine and are transmitted directly to your chosen AI model provider when you make requests.
+  Tram 不会将你的配置发送到任何 Tram 服务器。你的 API 密钥和偏好仅存储在本地计算机上，只有在你发出请求时才会直接传输到你选择的 AI 模型提供商。
 </Note>
 
-## Next step
+## 下一步
 
-<Card title="Model Configuration" href="/configuration/models">
-  Learn how to choose the right AI model for your tasks in Tram.
+<Card title="模型配置" href="/configuration/models">
+  了解如何在 Tram 中为你的任务选择合适的 AI 模型。
 </Card>

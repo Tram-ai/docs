@@ -1,0 +1,58 @@
+---
+title: "Get started with Tram"
+description: "Install the Tram CLI globally via npm, configure your API key on first run, and send your first AI-assisted prompt in under five minutes."
+---
+
+Tram installs globally via npm and runs in your terminal. This guide takes you from zero to your first working session: you'll install the CLI, verify it's working, configure your API key on first run, and send your first prompt.
+
+<Note>
+  Tram is currently in beta. You may encounter rough edges or breaking changes between versions. Check the [GitHub repository](https://github.com/tram-ai/tram) for the latest release notes.
+</Note>
+
+<Steps>
+  <Step title="Check prerequisites">
+    Tram requires **Node.js 20 or later**. Confirm your version before installing:
+
+    ```bash
+    node --version
+    ```
+
+    The output should be `v20.0.0` or higher. If it isn't, install or upgrade Node.js from [nodejs.org](https://nodejs.org) before continuing.
+  </Step>
+  <Step title="Install Tram">
+    Install the Tram CLI globally with npm:
+
+    ```bash
+    npm install -g @tram-ai/tram@latest
+    ```
+
+    The `@latest` tag ensures you get the most recent release.
+  </Step>
+  <Step title="Verify the installation">
+    Confirm that the CLI is installed and accessible on your `PATH`:
+
+    ```bash
+    tram --help
+    ```
+
+    You should see Tram's help output listing available commands and flags. If the command is not found, check that your npm global bin directory is on your `PATH`.
+  </Step>
+  <Step title="Run Tram for the first time">
+    Start an interactive session by running:
+
+    ```bash
+    tram
+    ```
+
+    On first launch, Tram walks you through a configuration prompt. Follow the prompts to supply your AI model API key. This only happens once — Tram stores the key locally so future sessions start immediately.
+  </Step>
+  <Step title="Try your first prompt">
+    Navigate to any project directory and run Tram with a prompt using the `-p` flag:
+
+    ```bash
+    tram -p "Explain this project's structure"
+    ```
+
+    Tram reads the context of your current directory and returns an explanation from the AI model. You can also omit the `-p` flag to open an interactive session and type prompts directly.
+  </Step>
+</Steps>

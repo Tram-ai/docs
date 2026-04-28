@@ -1,64 +1,64 @@
 ---
-title: "Tram FAQ: common questions about the AI terminal agent"
-description: "Answers to common questions about Tram: cost, data privacy, supported models, CI/CD usage, Node.js requirements, beta status, updating, and uninstalling."
+title: "Tram 常见问题：关于终端 AI 智能助手的常见问题"
+description: "关于 Tram 的常见问题解答：费用、数据隐私、支持的模型、CI/CD 使用、Node.js 要求、测试版状态、更新和卸载。"
 ---
 
-Below are answers to questions that come up frequently among Tram users. If your question is not covered here, visit the [Tram GitHub repository](https://github.com/Tram-ai/tram) to browse open issues or start a discussion.
+以下是 Tram 用户经常提出的问题及其解答。如果你的问题未在此处涵盖，请访问 [Tram GitHub 仓库](https://github.com/Tram-ai/tram) 浏览已有问题或发起讨论。
 
 <AccordionGroup>
-  <Accordion title="Is Tram free?">
-    Yes — the Tram CLI itself is open-source and free to install and use. However, Tram connects to third-party AI model providers to process your requests, and those providers charge for API usage. You are responsible for any costs billed by your chosen provider. Review your provider's pricing before running large or long-running tasks.
+  <Accordion title="Tram 是免费的吗？">
+    是的——Tram CLI 本身是开源且免费安装和使用的。但是，Tram 会连接第三方 AI 模型提供商来处理你的请求，这些提供商会对 API 使用收费。你需要为所选提供商产生的任何费用负责。在运行大型或长时间任务之前，请查看提供商的定价。
   </Accordion>
 
-  <Accordion title="Does Tram upload my code?">
-    Tram sends your prompts and any relevant code context to your configured AI model provider's API in order to generate responses. This data goes directly to your provider — not to any Tram servers. Tram itself does not store, log, or retain any of your code or prompts. Review your model provider's privacy policy to understand how they handle the data you send.
+  <Accordion title="Tram 会上传我的代码吗？">
+    Tram 会将你的提示和相关代码上下文发送到你配置的 AI 模型提供商的 API 以生成响应。这些数据直接发送到你的提供商——而不是任何 Tram 服务器。Tram 本身不会存储、记录或保留你的任何代码或提示。请查看你的模型提供商的隐私政策，了解他们如何处理你发送的数据。
   </Accordion>
 
-  <Accordion title="Which AI models does Tram support?">
-    Tram is built on foundations from [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) and [Gemini CLI](https://github.com/google-gemini/gemini-cli), which gives it broad support for a range of AI model providers. You configure your provider and API key during the initial setup when you first run `tram`. To switch providers, re-run the setup prompts at any time.
+  <Accordion title="Tram 支持哪些 AI 模型？">
+    Tram 基于 [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) 和 [Gemini CLI](https://github.com/google-gemini/gemini-cli) 构建，因此广泛支持多种 AI 模型提供商。你在首次运行 `tram` 时进行初始设置，配置提供商和 API 密钥。要切换提供商，随时重新运行设置提示即可。
   </Accordion>
 
-  <Accordion title="Can I use Tram in CI/CD pipelines?">
-    Yes. Tram supports a headless mode that lets you pass a prompt directly from the command line without starting an interactive session. Use the `-p` flag followed by your task:
+  <Accordion title="我可以在 CI/CD 管道中使用 Tram 吗？">
+    可以。Tram 支持无头模式，允许你直接从命令行传递提示，而无需启动交互式会话。使用 `-p` 标志加上你的任务：
 
     ```bash
     tram -p "your task"
     ```
 
-    When using Tram in a CI/CD environment, configure your API key non-interactively by setting it through your pipeline's secret management system rather than relying on the interactive setup prompt.
+    在 CI/CD 环境中使用 Tram 时，请通过管道的密钥管理系统非交互式地配置 API 密钥，而不是依赖交互式设置提示。
   </Accordion>
 
-  <Accordion title="What Node.js version do I need?">
-    Tram requires Node.js 20 or later. To check your current version, run:
+  <Accordion title="我需要什么版本的 Node.js？">
+    Tram 需要 Node.js 20 或更高版本。要检查当前版本，请运行：
 
     ```bash
     node --version
     ```
 
-    If you are on an older version, upgrade using [nvm](https://github.com/nvm-sh/nvm) or by downloading the latest LTS release from [nodejs.org](https://nodejs.org/).
+    如果你使用的是旧版本，请使用 [nvm](https://github.com/nvm-sh/nvm) 升级，或从 [nodejs.org](https://nodejs.org/) 下载最新的 LTS 版本。
   </Accordion>
 
-  <Accordion title="Is Tram production-ready?">
-    Tram is currently in beta. It is actively developed and suitable for daily use, but you may encounter bugs or breaking changes between releases. Keep this in mind when integrating Tram into critical workflows, and update regularly to get the latest fixes. If you run into issues, report them on the [GitHub issue tracker](https://github.com/Tram-ai/tram/issues).
+  <Accordion title="Tram 是否已经可用于生产环境？">
+    Tram 目前处于测试阶段。它正在积极开发中，适合日常使用，但你可能会遇到 bug 或版本之间的破坏性更改。在将 Tram 集成到关键工作流时请注意这一点，并定期更新以获取最新修复。如果遇到问题，请在 [GitHub 问题追踪器](https://github.com/Tram-ai/tram/issues) 上报告。
   </Accordion>
 
-  <Accordion title="How do I update Tram?">
-    Run the following command to update to the latest version:
+  <Accordion title="如何更新 Tram？">
+    运行以下命令更新到最新版本：
 
     ```bash
     npm install -g @tram-ai/tram@latest
     ```
 
-    This overwrites your existing installation with the newest release. Your local configuration is preserved.
+    这将用最新版本覆盖你的现有安装。你的本地配置会被保留。
   </Accordion>
 
-  <Accordion title="How do I uninstall Tram?">
-    Run the following command to remove Tram from your system:
+  <Accordion title="如何卸载 Tram？">
+    运行以下命令从系统中移除 Tram：
 
     ```bash
     npm uninstall -g @tram-ai/tram
     ```
 
-    This removes the `tram` binary. Your local configuration files are not removed automatically — delete the Tram configuration directory from your user config folder if you want a clean removal.
+    这将移除 `tram` 二进制文件。你的本地配置文件不会自动移除——如果你需要完全清除，请从用户配置文件夹中删除 Tram 配置目录。
   </Accordion>
 </AccordionGroup>

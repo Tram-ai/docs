@@ -1,0 +1,44 @@
+---
+title: "Configure Tram: API keys, models, and session settings"
+description: "Tram stores configuration locally after first launch. Learn what gets configured, how to update your settings, and where your config file lives."
+---
+
+Tram stores its configuration locally on your machine after your initial setup, so you don't need to reconfigure it on every run. The first time you launch Tram, it walks you through a short setup process where you provide your API key and choose your model provider. From that point on, Tram reads your saved configuration automatically each time it starts.
+
+## Initial setup
+
+When you run `tram` for the first time, it detects that no configuration exists and starts an interactive setup prompt. Follow the prompts to supply your API key and select a model provider. Setup takes about 30 seconds.
+
+```bash
+tram
+```
+
+Once setup is complete, Tram saves your configuration to your machine's standard user configuration directory. You do not need to run setup again unless you want to change your settings.
+
+## What gets configured
+
+During setup, Tram collects and stores the following:
+
+- **API key** — your key for authenticating with your chosen AI model provider
+- **Model provider** — the AI service you want Tram to connect to
+- **Session preferences** — any defaults that affect how Tram behaves during a session
+
+## Updating your configuration
+
+To change your API key, switch model providers, or update session preferences, re-run `tram` and follow the setup prompts again. Tram will overwrite your existing configuration with the new values you provide.
+
+```bash
+tram
+```
+
+If you prefer to edit the configuration file directly, you can find it in your operating system's standard user configuration directory (for example, `~/.config/tram/` on Linux and macOS).
+
+<Note>
+  Tram never sends your configuration to any Tram servers. Your API key and preferences are stored only on your local machine and are transmitted directly to your chosen AI model provider when you make requests.
+</Note>
+
+## Next step
+
+<Card title="Model Configuration" href="/configuration/models">
+  Learn how to choose the right AI model for your tasks in Tram.
+</Card>

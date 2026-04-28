@@ -1,57 +1,57 @@
 ---
-title: "What is Tram?"
-description: "Learn what Tram is, what you can build with it, and what you need before installing this open-source AI agent CLI tool for your terminal."
+title: "什么是 Tram？"
+description: "了解 Tram 是什么、你可以用它构建什么，以及在安装这个开源终端 AI 智能助手 CLI 工具之前需要准备什么。"
 ---
 
-Tram is an open-source AI agent that runs directly in your terminal. You install it once globally via npm, point it at a project directory, and interact with it through a live session or a single one-line command. Tram connects to an AI model using your API key and works alongside you in the environment where you already spend most of your time — the terminal.
+Tram 是一个开源的 AI 智能助手，直接在你的终端中运行。你只需通过 npm 全局安装一次，将其指向一个项目目录，然后通过实时会话或单行命令与它交互。Tram 使用你的 API 密钥连接到 AI 模型，在你最常使用的环境——终端中与你协同工作。
 
-## What Tram does
+## Tram 能做什么
 
-Tram is designed to make software development faster by giving you an intelligent assistant that understands your project. You can use it to:
+Tram 旨在通过提供一个理解你项目的智能助手来加速软件开发。你可以用它来：
 
-- **Understand large codebases** — ask Tram to explain unfamiliar files, trace how a feature works, or summarize the structure of a project you've just inherited
-- **Automate repetitive dev tasks** — delegate work like writing boilerplate, refactoring patterns across files, or generating documentation
-- **Accelerate development** — get answers and working code without leaving your terminal or switching to a browser
+- **理解大型代码库** — 让 Tram 解释陌生的文件、追踪某个功能的工作原理，或总结你刚刚接手的项目结构
+- **自动化重复的开发任务** — 将编写样板代码、跨文件重构模式或生成文档等工作委派给它
+- **加速开发** — 无需离开终端或切换到浏览器，即可获取答案和可用代码
 
-## How it works
+## 工作原理
 
-Run `tram` to open an interactive session, or pass a prompt directly with the `-p` flag:
+运行 `tram` 以打开交互式会话，或使用 `-p` 标志直接传递提示：
 
 ```bash
 tram -p "Explain this project's structure"
 ```
 
-On first run, Tram walks you through a short configuration to set up your API key. After that, every subsequent session connects automatically to your chosen AI model provider and begins assisting you in your terminal.
+首次运行时，Tram 会引导你完成简短的配置以设置 API 密钥。此后，每次会话都会自动连接到你选择的 AI 模型提供商，并在终端中开始协助你。
 
-## Key features
+## 主要功能
 
 <CardGroup cols={2}>
-  <Card title="Interactive mode" icon="terminal">
-    Open a live conversation in your terminal and work through problems step by step with an AI agent.
+  <Card title="交互模式" icon="terminal">
+    在终端中打开实时对话，与 AI 智能助手逐步解决问题。
   </Card>
-  <Card title="Headless mode" icon="bolt">
-    Pass a prompt with the `-p` flag to run Tram non-interactively — useful for scripts and automation.
+  <Card title="无头模式" icon="bolt">
+    使用 `-p` 标志以非交互方式运行 Tram——适用于脚本和自动化。
   </Card>
-  <Card title="Codebase exploration" icon="magnifying-glass-code">
-    Ask Tram to explain, summarize, or navigate any part of your code without leaving the terminal.
+  <Card title="代码库探索" icon="magnifying-glass-code">
+    让 Tram 解释、总结或导航代码的任意部分，无需离开终端。
   </Card>
-  <Card title="Task automation" icon="gears">
-    Delegate repetitive development work and review the output before applying it to your project.
+  <Card title="任务自动化" icon="gears">
+    将重复的开发工作委派出去，并在应用到项目之前审查输出。
   </Card>
 </CardGroup>
 
-## Requirements
+## 系统要求
 
-Before you install Tram, confirm you have the following:
+在安装 Tram 之前，请确认你具备以下条件：
 
-- **Node.js 20 or later** — Tram requires Node.js 20+. Run `node --version` to check.
-- **npm** — included with Node.js and used to install the Tram CLI globally.
+- **Node.js 20 或更高版本** — Tram 需要 Node.js 20+。运行 `node --version` 检查版本。
+- **npm** — 随 Node.js 一起提供，用于全局安装 Tram CLI。
 
-## Open-source heritage
+## 开源血统
 
-Tram is built on and acknowledges two excellent open-source projects:
+Tram 基于以下两个优秀的开源项目构建并致谢：
 
-- [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) by Alibaba's Qwen team
-- [Gemini CLI](https://github.com/google-gemini/gemini-cli) by Google
+- [Qwen Code](https://github.com/QwenLM/Qwen3-Coder)，由阿里巴巴 Qwen 团队开发
+- [Gemini CLI](https://github.com/google-gemini/gemini-cli)，由 Google 开发
 
-Tram modifies and extends these projects to deliver its terminal-native AI agent experience.
+Tram 修改并扩展了这些项目，以提供其终端原生的 AI 智能助手体验。

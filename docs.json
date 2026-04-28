@@ -54,46 +54,69 @@
     ],
      "languages": [
       {
-        "language": "en",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": ["index", "quickstart"]
-          }
-        ]
-      },
-      {
         "language": "zh",
         "groups": [
           {
             "group": "入门指南",
-            "pages": ["zh/index", "zh/quickstart", "zh/authentication"]
+            "pages": ["index", "quickstart", "authentication"]
           },
           {
             "group": "介绍",
-            "pages": ["zh/introduction"]
+            "pages": ["introduction"]
           },
           {
             "group": "使用指南",
             "pages": [
-              "zh/usage/interactive-mode",
-              "zh/usage/headless-mode",
-              "zh/usage/codebase-exploration",
-              "zh/usage/task-automation"
+              "usage/interactive-mode",
+              "usage/headless-mode",
+              "usage/codebase-exploration",
+              "usage/task-automation"
             ]
           },
           {
             "group": "配置",
             "pages": [
-              "zh/configuration/overview",
-              "zh/configuration/models"
+              "configuration/overview",
+              "configuration/models"
             ]
           },
           {
             "group": "帮助",
             "pages": [
-              "zh/troubleshooting",
-              "zh/faq"
+              "troubleshooting",
+              "faq"
+            ]
+          }
+        ]
+      },
+      {
+        "language": "en",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": ["en/index", "en/quickstart", "en/authentication"]
+          },
+          {
+            "group": "Usage",
+            "pages": [
+              "en/usage/interactive-mode",
+              "en/usage/headless-mode",
+              "en/usage/codebase-exploration",
+              "en/usage/task-automation"
+            ]
+          },
+          {
+            "group": "Configuration",
+            "pages": [
+              "en/configuration/overview",
+              "en/configuration/models"
+            ]
+          },
+          {
+            "group": "Help",
+            "pages": [
+              "en/troubleshooting",
+              "en/faq"
             ]
           }
         ]

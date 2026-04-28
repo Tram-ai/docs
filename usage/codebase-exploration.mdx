@@ -1,48 +1,48 @@
 ---
-title: "Explore your codebase with Tram"
-description: "Use Tram to understand large codebases fast. Ask about project structure, trace data flows, locate logic, and get plain-English explanations of unfamiliar code."
+title: "使用 Tram 探索你的代码库"
+description: "使用 Tram 快速理解大型代码库。询问项目结构、追踪数据流、定位逻辑，获取对陌生代码的自然语言解释。"
 ---
 
-One of Tram's primary use cases is helping you navigate and understand large codebases quickly. Instead of manually tracing call stacks or grepping through files, you can ask Tram plain-English questions and get focused, relevant answers — all without leaving your terminal.
+Tram 的主要用例之一是帮助你快速导航和理解大型代码库。你无需手动追踪调用栈或在文件中 grep 搜索，而是可以用自然语言向 Tram 提问并获得专注、相关的答案——一切都无需离开终端。
 
-## Common exploration prompts
+## 常见探索提示
 
-Here are examples of the kinds of questions Tram handles well:
+以下是 Tram 能够很好处理的问题类型示例：
 
-**Understand the overall structure:**
+**了解整体结构：**
 ```
 Explain the overall structure of this project
 ```
 
-**Learn what a specific class or service does:**
+**了解特定类或服务的功能：**
 ```
 What does the `UserService` class do?
 ```
 
-**Locate specific logic:**
+**定位特定逻辑：**
 ```
 Where is the authentication logic handled?
 ```
 
-**Trace data flows:**
+**追踪数据流：**
 ```
 Show me how data flows from the API to the database
 ```
 
-## Tips for better answers
+## 获得更好答案的技巧
 
-- **Reference names directly.** Prompts like "What does `src/services/email.ts` do?" give Tram a specific target, which leads to more precise answers than vague questions.
-- **Narrow the scope.** "Explain the error handling in `src/middleware/errors.ts`" is more useful than "Explain all error handling".
-- **Ask follow-up questions.** In interactive mode, you can refine your understanding step by step within a single session.
+- **直接引用名称。** 像"'src/services/email.ts' 做了什么？"这样的提示给 Tram 提供了明确的目标，比含糊的问题能得到更精确的答案。
+- **缩小范围。** "解释 `src/middleware/errors.ts` 中的错误处理"比"解释所有错误处理"更有用。
+- **提出后续问题。** 在交互模式中，你可以在单个会话内逐步深化理解。
 
-## How Tram reads your project
+## Tram 如何读取你的项目
 
-Tram works from your current working directory. When you run `tram`, it reads files relative to that directory to answer your questions. You don't need to configure file paths or tell Tram where your project is — it uses your shell's working directory automatically.
+Tram 从你的当前工作目录开始工作。当你运行 `tram` 时，它会相对于该目录读取文件来回答你的问题。你不需要配置文件路径或告诉 Tram 项目在哪里——它会自动使用你 shell 的工作目录。
 
 <Tip>
-  Run `tram` from your project's root directory. Starting at the root gives Tram access to your full project tree, so it can answer questions that span multiple files or directories.
+  从项目的根目录运行 `tram`。从根目录启动可以让 Tram 访问完整的项目树，这样它就能回答跨多个文件或目录的问题。
 </Tip>
 
 <Info>
-  Tram reads your local files to answer questions, but your code is not stored or indexed anywhere. The only transmission of your code is the content included in the API call to your configured AI model provider — the same provider you authenticated with during setup.
+  Tram 读取你的本地文件来回答问题，但你的代码不会被存储或索引到任何地方。你代码的唯一传输是包含在发送到你配置的 AI 模型提供商的 API 调用中的内容——即你在设置期间进行身份验证的同一个提供商。
 </Info>

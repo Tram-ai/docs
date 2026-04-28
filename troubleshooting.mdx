@@ -1,62 +1,62 @@
 ---
-title: "Troubleshoot common Tram installation and usage issues"
-description: "Fix the most common Tram problems: command not found, Node.js version errors, API key rejections, hangs, permission errors, and slow responses."
+title: "排查常见的 Tram 安装和使用问题"
+description: "修复最常见的 Tram 问题：命令未找到、Node.js 版本错误、API 密钥被拒绝、挂起、权限错误和响应缓慢。"
 ---
 
-Here are solutions to the most common issues you may encounter when installing or running Tram. Work through the relevant section below to resolve your problem quickly.
+以下是你在安装或运行 Tram 时可能遇到的最常见问题的解决方案。请查看相关部分以快速解决你的问题。
 
 <AccordionGroup>
   <Accordion title='"tram: command not found"'>
-    This error means the directory where npm installs global binaries is not included in your system's `PATH`. After running `npm install -g @tram-ai/tram@latest`, your shell cannot locate the `tram` executable.
+    此错误表示 npm 安装全局二进制文件的目录未包含在系统的 `PATH` 中。运行 `npm install -g @tram-ai/tram@latest` 后，你的 shell 无法找到 `tram` 可执行文件。
 
-    **Find your npm global bin directory:**
+    **查找 npm 全局 bin 目录：**
 
     ```bash
     npm bin -g
     ```
 
-    Then add that directory to your `PATH`.
+    然后将该目录添加到你的 `PATH`。
 
-    **macOS and Linux:**
+    **macOS 和 Linux：**
 
-    Add the following line to your shell profile file (`~/.bashrc`, `~/.zshrc`, or equivalent), replacing the path with the output from the command above:
+    将以下行添加到你的 shell 配置文件（`~/.bashrc`、`~/.zshrc` 或等效文件），将路径替换为上述命令的输出：
 
     ```bash
     export PATH="$PATH:$(npm bin -g)"
     ```
 
-    Reload your shell profile:
+    重新加载你的 shell 配置文件：
 
     ```bash
     source ~/.zshrc
     ```
 
-    **Windows:**
+    **Windows：**
 
-    Open **System Properties** > **Environment Variables** and add the npm global bin path (typically `%APPDATA%\npm`) to your `Path` variable. Then restart your terminal.
+    打开**系统属性** > **环境变量**，将 npm 全局 bin 路径（通常为 `%APPDATA%\npm`）添加到你的 `Path` 变量中。然后重启终端。
   </Accordion>
 
-  <Accordion title="Node.js version error">
-    Tram requires Node.js 20 or later. If you see an error about an unsupported Node.js version, check what version you have installed:
+  <Accordion title="Node.js 版本错误">
+    Tram 需要 Node.js 20 或更高版本。如果你看到有关不支持的 Node.js 版本的错误，请检查已安装的版本：
 
     ```bash
     node --version
     ```
 
-    If the output is below `v20.0.0`, upgrade Node.js using one of the following methods:
+    如果输出低于 `v20.0.0`，请使用以下方法之一升级 Node.js：
 
-    **Using nvm (recommended):**
+    **使用 nvm（推荐）：**
 
     ```bash
     nvm install 20
     nvm use 20
     ```
 
-    **Direct install:**
+    **直接安装：**
 
-    Download and install the latest LTS release from [nodejs.org](https://nodejs.org/).
+    从 [nodejs.org](https://nodejs.org/) 下载并安装最新的 LTS 版本。
 
-    After upgrading, confirm the version and reinstall Tram:
+    升级后，确认版本并重新安装 Tram：
 
     ```bash
     node --version
@@ -64,48 +64,48 @@ Here are solutions to the most common issues you may encounter when installing o
     ```
   </Accordion>
 
-  <Accordion title="Authentication error / API key rejected">
-    If Tram reports an authentication error or says your API key is invalid, the key you provided during setup may be incorrect, expired, or have insufficient permissions.
+  <Accordion title="身份验证错误 / API 密钥被拒绝">
+    如果 Tram 报告身份验证错误或提示你的 API 密钥无效，则你在设置期间提供的密钥可能不正确、已过期或权限不足。
 
-    To fix this:
+    修复方法：
 
-    1. Log in to your AI model provider's dashboard and verify that your API key is active and has not expired.
-    2. Copy the key exactly — avoid trailing spaces or missing characters.
-    3. Re-run the Tram setup to replace the stored key:
-
-    ```bash
-    tram
-    ```
-
-    Follow the prompts to enter your corrected API key.
-  </Accordion>
-
-  <Accordion title="Tram hangs or doesn't respond">
-    If Tram starts but appears to freeze or never returns a response, work through the following checks:
-
-    1. **Check your internet connection** — Tram must be able to reach your model provider's API over the network.
-    2. **Check your provider's status page** — your model provider may be experiencing an outage or degraded performance.
-    3. **Interrupt and restart** — press `Ctrl+C` to stop the current session and run `tram` again.
+    1. 登录你的 AI 模型提供商仪表板，验证 API 密钥处于活动状态且未过期。
+    2. 准确复制密钥——避免尾随空格或缺少字符。
+    3. 重新运行 Tram 设置以替换已存储的密钥：
 
     ```bash
     tram
     ```
 
-    If the issue persists, try switching to a different model provider to determine whether the problem is provider-specific.
+    按照提示输入更正后的 API 密钥。
   </Accordion>
 
-  <Accordion title="Permission errors during install">
-    If you see a permissions error when running `npm install -g @tram-ai/tram@latest`, do not re-run the command with `sudo`. Using `sudo` with npm can cause file ownership issues that are difficult to reverse.
+  <Accordion title="Tram 挂起或无响应">
+    如果 Tram 启动后似乎冻结或从未返回响应，请按以下步骤排查：
 
-    Instead, fix your npm permissions using one of these approaches:
+    1. **检查网络连接** — Tram 必须能够通过网络访问模型提供商的 API。
+    2. **检查提供商的状态页面** — 你的模型提供商可能正在经历故障或性能下降。
+    3. **中断并重启** — 按 `Ctrl+C` 停止当前会话，然后重新运行 `tram`。
 
-    **Option 1 — Use nvm (recommended):**
+    ```bash
+    tram
+    ```
 
-    Install nvm and use it to manage your Node.js installation. nvm installs Node.js and npm in your home directory, so global installs never require elevated permissions.
+    如果问题持续存在，尝试切换到其他模型提供商，以确定问题是否特定于某个提供商。
+  </Accordion>
 
-    **Option 2 — Change the npm global directory:**
+  <Accordion title="安装时权限错误">
+    如果在运行 `npm install -g @tram-ai/tram@latest` 时看到权限错误，请不要使用 `sudo` 重新运行该命令。在 npm 中使用 `sudo` 可能导致难以恢复的文件所有权问题。
 
-    Configure npm to use a directory inside your home folder:
+    请使用以下方法之一修复 npm 权限：
+
+    **方法 1 — 使用 nvm（推荐）：**
+
+    安装 nvm 并使用它管理 Node.js 安装。nvm 将 Node.js 和 npm 安装在你的主目录中，因此全局安装永远不需要提升权限。
+
+    **方法 2 — 更改 npm 全局目录：**
+
+    将 npm 配置为使用主文件夹中的目录：
 
     ```bash
     mkdir -p ~/.npm-global
@@ -113,17 +113,17 @@ Here are solutions to the most common issues you may encounter when installing o
     export PATH="$PATH:$HOME/.npm-global/bin"
     ```
 
-    Add the `export` line to your shell profile file so it persists across sessions, then retry the install.
+    将 `export` 行添加到你的 shell 配置文件以使其跨会话持久化，然后重试安装。
   </Accordion>
 
-  <Accordion title="Slow responses">
-    Response speed depends primarily on your model provider and the model you have selected. If responses feel slow, consider the following:
+  <Accordion title="响应缓慢">
+    响应速度主要取决于你的模型提供商和所选模型。如果响应感觉缓慢，请考虑以下因素：
 
-    - **Switch to a faster model** — larger models take longer to generate responses. Try a smaller or faster model variant from your provider for routine queries.
-    - **Check your network latency** — a slow or unstable connection increases round-trip time to the provider's API.
-    - **Check provider load** — some providers have variable response times depending on demand. Consult your provider's status page if slowness is persistent.
+    - **切换到更快的模型** — 较大的模型生成响应需要更长时间。对于日常查询，尝试提供商提供的较小或更快的模型变体。
+    - **检查网络延迟** — 缓慢或不稳定的连接会增加到提供商 API 的往返时间。
+    - **检查提供商负载** — 一些提供商的响应时间会因需求而变化。如果缓慢持续，请查阅提供商的状态页面。
 
-    To change your model, re-run Tram setup and select a different option when prompted:
+    要更改模型，重新运行 Tram 设置并在提示时选择不同的选项：
 
     ```bash
     tram
@@ -132,5 +132,5 @@ Here are solutions to the most common issues you may encounter when installing o
 </AccordionGroup>
 
 <Note>
-  If you encounter a bug not covered here, report it on the [Tram GitHub issue tracker](https://github.com/Tram-ai/tram/issues). Include your Node.js version, your operating system, and the exact error message or behavior you observed.
+  如果你遇到此处未涵盖的 bug，请在 [Tram GitHub 问题追踪器](https://github.com/Tram-ai/tram/issues) 上报告。请包含你的 Node.js 版本、操作系统以及你观察到的确切错误消息或行为。
 </Note>

@@ -1,50 +1,50 @@
 ---
-title: "Authenticate with Tram"
-description: "Configure your AI model API key so Tram can connect to a provider. Learn how setup works, where the key is stored, and what to do if auth fails."
+title: "Tram 身份验证"
+description: "配置 AI 模型 API 密钥，使 Tram 能够连接到提供商。了解设置过程、密钥存储位置，以及身份验证失败时的处理方法。"
 ---
 
-Tram connects to an AI model provider on your behalf, so it needs a valid API key to function. You provide this key once during the initial configuration prompt, and Tram stores it locally so you don't have to enter it again in future sessions.
+Tram 代表你连接到 AI 模型提供商，因此需要一个有效的 API 密钥才能正常工作。你只需在初始配置提示时提供一次密钥，Tram 会将其存储在本地，以便在后续会话中无需再次输入。
 
-## How authentication works
+## 身份验证的工作原理
 
-When you run `tram` for the first time, Tram detects that no key is configured and launches an interactive setup prompt before opening a session. The prompt asks you to enter your API key for your chosen AI model provider. Once you submit it, Tram stores the key on your local machine and uses it automatically from that point forward.
+当你首次运行 `tram` 时，Tram 检测到没有配置密钥，并在打开会话之前启动交互式设置提示。提示会要求你输入所选 AI 模型提供商的 API 密钥。提交后，Tram 将密钥存储在本地计算机上，并从此自动使用它。
 
 <Warning>
-  Your API key grants access to a paid AI model provider account. Never commit your API key to version control, share it in chat, or include it in publicly visible configuration files. Treat it like a password.
+  你的 API 密钥授予对付费 AI 模型提供商账户的访问权限。切勿将 API 密钥提交到版本控制、在聊天中分享，或包含在公开可见的配置文件中。请像对待密码一样对待它。
 </Warning>
 
-## Configuring your API key
+## 配置 API 密钥
 
-Run Tram and follow the prompts:
+运行 Tram 并按照提示操作：
 
 ```bash
 tram
 ```
 
-When the configuration prompt appears, paste in your API key and press Enter. Tram confirms the key is saved and then opens your session.
+当配置提示出现时，粘贴你的 API 密钥并按回车。Tram 确认密钥已保存，然后打开你的会话。
 
 <Tip>
-  Generate your API key from your AI model provider's developer dashboard or API settings page. Most providers display the key only once at creation time — copy it before closing the page and store it somewhere safe.
+  从你的 AI 模型提供商的开发者仪表板或 API 设置页面生成 API 密钥。大多数提供商只在创建时显示一次密钥——在关闭页面之前复制它，并将其存储在安全的地方。
 </Tip>
 
-## Where the key is stored
+## 密钥存储位置
 
-Tram saves your API key locally on your machine. It is not transmitted anywhere other than to the AI model provider when making requests. The key persists across sessions so you only need to configure it once per machine.
+Tram 将你的 API 密钥保存在本地计算机上。除了在发送请求时传输到 AI 模型提供商外，密钥不会被传输到任何其他地方。密钥会跨会话持久保存，因此你只需在每台计算机上配置一次。
 
-## Supported providers
+## 支持的提供商
 
-Tram is built on top of [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) and [Gemini CLI](https://github.com/google-gemini/gemini-cli), both of which support AI model providers. Refer to the Tram configuration documentation or the setup prompt itself for the current list of supported providers.
+Tram 基于 [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) 和 [Gemini CLI](https://github.com/google-gemini/gemini-cli) 构建，两者都支持 AI 模型提供商。请参阅 Tram 配置文档或设置提示本身以获取当前支持的提供商列表。
 
-## If authentication fails
+## 身份验证失败时的处理
 
-If Tram fails to authenticate or you need to update your key, re-run the configuration by starting a new session:
+如果 Tram 无法验证身份或你需要更新密钥，请通过启动新会话重新运行配置：
 
 ```bash
 tram
 ```
 
-If your key is already stored but invalid, Tram will surface an authentication error when it tries to connect to the provider. In that case:
+如果你的密钥已存储但无效，Tram 会在尝试连接提供商时显示身份验证错误。在这种情况下：
 
-1. Verify that the key is correct and has not expired or been revoked.
-2. Check your provider's dashboard to confirm the key is active and has sufficient quota.
-3. Re-run `tram` and enter a new key when prompted.
+1. 验证密钥是否正确，且未过期或被撤销。
+2. 检查提供商的仪表板，确认密钥处于活动状态且有足够的配额。
+3. 重新运行 `tram`，并在提示时输入新密钥。

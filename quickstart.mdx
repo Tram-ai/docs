@@ -1,58 +1,58 @@
 ---
-title: "Get started with Tram"
-description: "Install the Tram CLI globally via npm, configure your API key on first run, and send your first AI-assisted prompt in under five minutes."
+title: "Tram 入门指南"
+description: "通过 npm 全局安装 Tram CLI，在首次运行时配置 API 密钥，五分钟内发送你的第一个 AI 辅助提示。"
 ---
 
-Tram installs globally via npm and runs in your terminal. This guide takes you from zero to your first working session: you'll install the CLI, verify it's working, configure your API key on first run, and send your first prompt.
+Tram 通过 npm 全局安装，在终端中运行。本指南将带你从零开始到完成第一个工作会话：安装 CLI、验证其正常工作、在首次运行时配置 API 密钥，并发送你的第一个提示。
 
 <Note>
-  Tram is currently in beta. You may encounter rough edges or breaking changes between versions. Check the [GitHub repository](https://github.com/tram-ai/tram) for the latest release notes.
+  Tram 目前处于测试阶段。你可能会遇到一些粗糙的边缘情况或版本之间的破坏性更改。请查看 [GitHub 仓库](https://github.com/tram-ai/tram) 了解最新发布说明。
 </Note>
 
 <Steps>
-  <Step title="Check prerequisites">
-    Tram requires **Node.js 20 or later**. Confirm your version before installing:
+  <Step title="检查前提条件">
+    Tram 需要 **Node.js 20 或更高版本**。安装前请确认你的版本：
 
     ```bash
     node --version
     ```
 
-    The output should be `v20.0.0` or higher. If it isn't, install or upgrade Node.js from [nodejs.org](https://nodejs.org) before continuing.
+    输出应为 `v20.0.0` 或更高版本。如果不是，请在继续之前从 [nodejs.org](https://nodejs.org) 安装或升级 Node.js。
   </Step>
-  <Step title="Install Tram">
-    Install the Tram CLI globally with npm:
+  <Step title="安装 Tram">
+    使用 npm 全局安装 Tram CLI：
 
     ```bash
     npm install -g @tram-ai/tram@latest
     ```
 
-    The `@latest` tag ensures you get the most recent release.
+    `@latest` 标签确保你获取最新版本。
   </Step>
-  <Step title="Verify the installation">
-    Confirm that the CLI is installed and accessible on your `PATH`:
+  <Step title="验证安装">
+    确认 CLI 已安装并可在 `PATH` 中访问：
 
     ```bash
     tram --help
     ```
 
-    You should see Tram's help output listing available commands and flags. If the command is not found, check that your npm global bin directory is on your `PATH`.
+    你应该看到 Tram 的帮助输出，列出可用的命令和标志。如果找不到该命令，请检查 npm 全局 bin 目录是否在你的 `PATH` 中。
   </Step>
-  <Step title="Run Tram for the first time">
-    Start an interactive session by running:
+  <Step title="首次运行 Tram">
+    运行以下命令启动交互式会话：
 
     ```bash
     tram
     ```
 
-    On first launch, Tram walks you through a configuration prompt. Follow the prompts to supply your AI model API key. This only happens once — Tram stores the key locally so future sessions start immediately.
+    首次启动时，Tram 会引导你完成配置提示。按照提示提供你的 AI 模型 API 密钥。这只需要进行一次——Tram 会将密钥存储在本地，后续会话将立即启动。
   </Step>
-  <Step title="Try your first prompt">
-    Navigate to any project directory and run Tram with a prompt using the `-p` flag:
+  <Step title="尝试你的第一个提示">
+    导航到任意项目目录，使用 `-p` 标志运行 Tram：
 
     ```bash
     tram -p "Explain this project's structure"
     ```
 
-    Tram reads the context of your current directory and returns an explanation from the AI model. You can also omit the `-p` flag to open an interactive session and type prompts directly.
+    Tram 读取当前目录的上下文并从 AI 模型返回解释。你也可以省略 `-p` 标志，打开交互式会话直接输入提示。
   </Step>
 </Steps>
