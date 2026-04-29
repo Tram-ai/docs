@@ -1,0 +1,91 @@
+---
+title: "命令参考"
+description: "查看 Tram 的顶层命令、常用全局标志和最常见的启动方式。"
+---
+
+如果你想先看 Tram 能做什么，最直接的入口就是 `tram --help`。
+
+```bash
+tram --help
+```
+
+这会显示 Tram 的顶层命令和常用标志。你也可以先看版本：
+
+```bash
+tram --version
+```
+
+## 顶层用法
+
+Tram 的基础启动方式有三种：
+
+```bash
+tram
+tram -p "你的提示"
+tram -i "你的提示"
+```
+
+`tram` 会打开交互式会话。`tram -p` 会直接执行一次提示并退出。`tram -i` 会先执行提示，再继续留在交互模式里。
+
+## 常用全局标志
+
+这些是你最常会自己控制的参数：
+
+- `-p, --prompt`：一次性提示。
+- `-i, --prompt-interactive`：先执行提示，再进入交互式会话。
+- `-m, --model`：指定当前运行使用的模型。
+- `-c, --continue`：恢复当前项目最近一次会话。
+- `-r, --resume <sessionId>`：恢复指定会话。
+- `--session-id <uuid>`：为这次运行指定会话 ID。
+- `-s, --sandbox`：启用沙箱。
+- `--sandbox-image`：指定沙箱镜像。
+- `--approval-mode`：设置工具审批模式，可用值为 `plan`、`default`、`auto-edit`、`yolo`。
+- `-y, --yolo`：快速进入全自动模式，等同于 `--approval-mode=yolo`。
+- `--input-format`：输入格式，常见于流式 JSON 场景。
+- `-o, --output-format`：输出格式，支持 `text`、`json`、`stream-json`。
+- `--include-partial-messages`：在 `stream-json` 输出里包含未完成消息。
+- `--initialize`：直接打开初始化向导。
+- `--auth-type`：显式指定认证类型。
+- `--allowed-tools` / `--exclude-tools`：控制工具允许范围。
+- `--allowed-mcp-server-names`：限制可用的 MCP 服务器。
+- `--include-directories`：额外纳入工作区上下文的目录。
+- `--channel`：指定运行渠道，例如 `VSCode`、`ACP`、`SDK` 或 `CI`。
+
+## 顶层命令
+
+除了直接运行 `tram`，你还可以使用这些用户可控命令：
+
+```bash
+tram auth
+tram mcp
+tram extensions
+tram channel
+```
+
+它们分别用于认证、MCP 服务器管理、扩展管理和消息通道管理。
+
+## 最常用的组合
+
+```bash
+tram
+tram -p "Explain this project"
+tram -p "Summarize @src/index.ts"
+tram -c
+tram -r 123e4567-e89b-12d3-a456-426614174000
+tram auth status
+tram mcp list
+tram extensions list
+tram channel status
+```
+
+## 什么时候该用哪个入口
+
+- 你要边看边问，直接用 `tram`。
+- 你要脚本化执行，直接用 `tram -p`。
+- 你要恢复历史会话，使用 `-c` 或 `-r`。
+- 你要管理外部能力，使用 `auth`、`mcp`、`extensions`、`channel`。
+- 你要快速确认命令和参数，先跑 `tram --help`。
+
+<Note>
+  如果你只记一个命令，先记 `tram --help`。它会告诉你当前版本支持哪些入口和标志。
+</Note>

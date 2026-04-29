@@ -67,6 +67,7 @@
            {
             "group": "使用指南",
             "pages": [
+              "usage/commands",
               "usage/interactive-mode",
               "usage/headless-mode",
               "usage/codebase-exploration",
