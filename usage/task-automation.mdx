@@ -3,51 +3,40 @@ title: "使用 Tram 自动化开发任务"
 description: "将重复的编码工作委派给 Tram——编写测试、生成类型、重构函数等——让你专注于真正重要的决策。"
 ---
 
-Tram 可以处理重复的开发任务——从编写样板代码到重构现有代码——让你专注于真正重要的工作。你始终保持控制：Tram 生成建议，由你决定应用什么。
+Tram 很适合处理重复、明确、可验证的开发任务。你给出范围，Tram 生成结果，你再决定是否采纳。
 
-## 常见自动化提示
+## 适合自动化的任务
 
-**为函数编写单元测试：**
-```
-Write unit tests for the `parseConfig` function in src/config.ts
-```
-
-**从 JSON schema 生成 TypeScript 类型：**
-```
+```text
+Write unit tests for the parseConfig function in src/config.ts
 Generate TypeScript types for the JSON schema in schemas/user.json
-```
-
-**将函数重构为使用 async/await：**
-```
-Refactor the `fetchUserData` function in src/api.ts to use async/await instead of promise chains
-```
-
-**为模块编写 README：**
-```
+Refactor the fetchUserData function in src/api.ts to use async/await instead of promise chains
 Write a README for the src/utils/ directory that documents each exported function
+Convert the ProfileCard class component in src/components/ProfileCard.tsx to a functional component using hooks
 ```
 
-**将类组件转换为函数组件：**
-```
-Convert the `ProfileCard` class component in src/components/ProfileCard.tsx to a functional component using hooks
-```
+## 无头模式
 
-## 使用无头模式执行可脚本化的任务
-
-对于你经常运行的任务，无头模式让你可以将 Tram 融入现有工作流。使用 `-p` 标志传递提示，并将输出管道传输或重定向到需要的地方：
+对于可脚本化的任务，优先使用无头模式：
 
 ```bash
 tram -p "Write unit tests for src/utils/format.ts" > src/utils/format.test.ts
 ```
 
-<Tip>
-  将无头模式与 shell 管道和输出重定向结合使用，将 Tram 集成到现有脚本中。例如，你可以生成文件、追加到日志，或将 Tram 的输出直接传递给另一个命令。
-</Tip>
+你可以把它接到 shell 管道、重定向、CI 步骤里，或者拿来生成临时结果再交给其他工具处理。
 
-## 应用前审查输出
+## 你还能控制什么
 
-Tram 根据它从代码库中读取的内容生成建议。输出是一个起点，而不是最终产品。仔细阅读 Tram 生成的内容，应用合理的部分，调整不符合项目约定的地方。
+如果你希望自动化结果更适合后续机器处理，可以把 `output.format` 设为 `json`。如果你要处理一大批文件，先在交互模式里验证提示，再把同样的提示放进脚本。
+
+## 应用前审查
+
+Tram 生成的是建议，不是最终答案。你应该在提交前检查这些内容：
+
+1. 逻辑是否符合项目约定。
+2. 生成的测试是否真的覆盖了关键行为。
+3. 是否需要根据仓库的目录结构和命名风格再做一次调整。
 
 <Warning>
-  在提交之前始终审查 AI 生成的代码。Tram 可能生成看起来合理但包含逻辑错误的代码，或未考虑项目特有的边缘情况。像对待代码审查建议一样对待它的输出：考虑它，而不是直接接受它。
+  不要把 AI 生成的代码直接提交。把它当成一次高质量的起点，而不是最终实现。
 </Warning>

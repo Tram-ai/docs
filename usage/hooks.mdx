@@ -3,82 +3,79 @@ title: "钩子管理"
 description: "使用钩子在 Tram 的特定事件发生时执行自定义脚本，实现工作流自动化。"
 ---
 
-钩子（Hooks）允许你在 Tram 的特定事件发生时执行自定义脚本，实现工作流自动化。
+Hooks 让你可以在 Tram 的关键事件上挂载脚本。它们适合做日志、通知、自动测试、权限审计和流程编排。
 
-## 什么是钩子
+## 你可以控制什么
 
-钩子是 Tram 在特定事件时触发的脚本或命令。你可以使用钩子来：
+在配置里，Hooks 使用这些事件名：
 
-- 在任务开始前执行预处理
-- 在任务完成后执行后处理
-- 发送通知或记录日志
-- 集成到 CI/CD 流程
+- `UserPromptSubmit`
+- `Stop`
+- `Notification`
+- `PreToolUse`
+- `PostToolUse`
+- `PostToolUseFailure`
+- `SessionStart`
+- `SessionEnd`
+- `PreCompact`
+- `SubagentStart`
+- `SubagentStop`
+- `PermissionRequest`
 
-## 可用的钩子事件
+## 每个 hook 定义里能写什么
 
-Tram 支持以下钩子事件：
+一个 hook 事件通常包含这些字段：
 
-- **beforeTask** — 在智能体开始处理任务前触发
-- **afterTask** — 在智能体完成任务后触发
-- **beforeSession** — 在会话开始前触发
-- **afterSession** — 在会话结束后触发
+- `matcher`：只在匹配到特定条件时执行。
+- `sequential`：是否按顺序串行执行。
+- `hooks`：要执行的命令列表。
 
-## 在交互模式中使用钩子
+每个命令项可以写：
 
-在交互模式中，使用 `/hooks` 命令来管理钩子：
+- `type: command`
+- `command`
+- `name`
+- `description`
+- `timeout`
+- `env`
 
+## 交互模式里的管理入口
+
+在会话里输入 `/hooks` 可以打开管理界面。交互模式下你可以查看、添加、编辑或禁用 Hooks。
+
+在非交互模式下，`/hooks` 会直接列出当前配置的 Hooks，方便你确认配置有没有生效。
+
+## 一个最小示例
+
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "ShellTool",
+        "sequential": true,
+        "hooks": [
+          {
+            "type": "command",
+            "name": "log-shell-use",
+            "command": "node scripts/log-hook.js",
+            "timeout": 5000
+          }
+        ]
+      }
+    ]
+  }
+}
 ```
-/hooks
-```
 
-这会打开钩子管理界面，你可以：
+## 需要注意什么
 
-- 查看已配置的钩子
-- 添加新的钩子
-- 编辑现有钩子
-- 启用/禁用钩子
-
-## 钩子脚本示例
-
-钩子脚本可以是任何可执行文件。以下是一些示例：
-
-### Shell 脚本钩子
-
-```bash
-#!/bin/bash
-# afterTask.sh - 任务完成后执行
-echo "Task completed at $(date)" >> /tmp/tram.log
-```
-
-### Node.js 脚本钩子
-
-```javascript
-// beforeTask.js
-const fs = require('fs');
-console.log('Starting task...');
-// 执行预处理逻辑
-```
-
-## 配置钩子
-
-钩子配置存储在 Tram 的配置文件中。每个钩子需要指定：
-
-- **事件名称** — 触发钩子的事件
-- **命令** — 要执行的命令或脚本
-- **工作目录** — 执行命令的目录（可选）
-- **环境变量** — 传递给命令的环境变量（可选）
-
-## 使用建议
-
-- **日志记录** — 使用钩子记录任务执行历史
-- **通知** — 在长时间任务完成时发送通知
-- **自动化测试** — 在代码生成后自动运行测试
-- **部署** — 在任务完成后触发部署流程
+Hooks 会以你的用户权限运行，所以它们本质上就是本地自动化脚本。请只放可信命令，并确保脚本不会阻塞 Tram 太久。
 
 <Tip>
-  钩子脚本应该快速执行并返回正确的退出码。长时间运行的钩子可能会阻塞 Tram 的执行。
+  如果你只是想暂时关闭所有 Hooks，不要删配置，直接用 `disableAllHooks` 即可。
 </Tip>
 
 <Note>
-  钩子脚本会以你的用户权限执行。请确保脚本来源可信，并且不会执行危险操作。
+  长时间运行的 hook 会拖慢 Tram 的响应。能快速返回的脚本更适合挂到 Hooks 上。
 </Note>

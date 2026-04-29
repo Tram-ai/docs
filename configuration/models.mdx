@@ -3,34 +3,57 @@ title: "为 Tram 选择 AI 模型：设置和最佳实践"
 description: "得益于 Qwen Code 和 Gemini CLI 的基础，Tram 支持多种 AI 提供商。了解如何选择模型以及如何为你的任务挑选合适的模型。"
 ---
 
-Tram 使用你在设置期间提供的 API 密钥连接到 AI 模型提供商。首次运行 `tram` 时，你选择要使用的模型提供商，Tram 会将该选择存储在本地配置中。你可以随时通过重新运行设置提示来更改模型选择。
+模型选择是 Tram 最重要的用户控制项之一。你可以通过设置文件、交互命令和 Arena 的参数来决定 Tram 在不同任务里使用哪个模型。
 
-## 广泛的模型支持
+## 你可以控制哪些模型相关项
 
-Tram 基于 [Qwen Code](https://github.com/QwenLM/Qwen3-Coder) 和 [Gemini CLI](https://github.com/google-gemini/gemini-cli) 构建，因此广泛支持多种 AI 模型提供商。这意味着你不会被锁定在单一提供商——你可以将 Tram 配置为使用最适合你工作流和预算的模型。
-
-## 在设置期间选择模型
-
-首次运行 `tram` 时，设置提示会要求你选择模型提供商并提供相应的 API 密钥。按照提示完成选择。
+主模型由 `model.name` 决定。你在交互会话中也可以使用 `/model` 直接切换当前会话的模型。
 
 ```bash
-tram
+/model
+/model --fast qwen3-coder-flash
 ```
 
-要切换到其他模型，再次运行 `tram` 并按照设置提示操作。Tram 会用新的模型选择更新你的已保存配置。
+`/model --fast` 用来设置“快速模型”，它会优先用于提示补全、建议生成和其他低延迟场景。你如果只输入 `/model --fast`，Tram 会打开快速模型选择对话框。
 
-## 为你的任务选择合适的模型
+除了主模型外，你还可以控制：
 
-不同的任务受益于不同的模型。使用以下指导来帮助你做出选择：
+- `fastModel`：用于建议和快速响应的轻量模型。
+- `model.fallbacks`：主模型失败时的备用顺序。
+- `model.maxSessionTurns`：单个会话最多保留多少轮。
+- `model.sessionTokenLimit`：会话 token 上限。
+- `model.chatCompression`：压缩历史对话的策略。
+- `model.skipStartupContext`：是否跳过启动时的上下文注入。
+- `model.generationConfig.timeout`、`maxRetries`、`schemaCompliance`、`contextWindowSize`：请求与工具 schema 的生成细节。
 
-- **大型代码库探索** — 使用具有大上下文窗口的模型，这样 Tram 可以一次将更多代码库保持在上下文中。在处理多个文件时，这会产生更准确、更连贯的结果。
-- **快速查询和单文件任务** — 较小、较快的模型响应更快且每次请求成本更低，适合有针对性的问题或简单编辑。
-- **自动化管道** — 对于无头模式用例，优先考虑可靠性和速度，而非原始上下文大小。
+## 认证类型和模型提供商
+
+Tram 的模型配置和认证是联动的。`security.auth.selectedType` 决定当前使用哪种认证类型，`security.auth.apiKey` 和 `security.auth.baseUrl` 则决定具体怎么连到提供商。
+
+如果你在同一套 Tram 里接了多个提供商，`modelProviders` 会把不同 `authType` 下的模型分组保存。这样你就能在不同提供商之间切换，而不用重建整套配置。
+
+## 任务类型和模型选择
+
+不同任务适合不同模型：
+
+1. **大型代码库探索**：优先选上下文窗口更大的模型。
+2. **单文件修改和快速问答**：优先选响应更快、成本更低的模型。
+3. **脚本化自动化**：优先选稳定性更高的模型，并考虑配置 `output.format` 为 `json`。
+
+## Arena 中的模型写法
+
+如果你使用 Arena，模型列表可以写成 `authType:modelId`。例如：
+
+```text
+/arena start --models openai:gpt-4o,anthropic:claude-3 "implement sorting"
+```
+
+如果你不写 `authType`，Arena 会使用当前会话的默认认证类型。
 
 <Tip>
-  在探索大型代码库时，选择具有长上下文窗口的模型。较大的上下文窗口让 Tram 能够一次读取和推理更多文件，这显著提高了在大型项目中解释、总结和重构建议的质量。
+  如果你经常在“探索代码”和“执行具体修改”之间切换，可以把一个大上下文模型作为主模型，把一个更快的模型放进 `fastModel`。
 </Tip>
 
 <Note>
-  Tram 不会代你承担 API 使用费用。你需要为所选模型提供商产生的任何费用负责。在运行大型或长时间任务之前，请查看提供商的定价。
+  模型越大，不代表越适合所有任务。对于脚本化或重复性任务，低延迟和低成本通常比绝对能力更重要。
 </Note>

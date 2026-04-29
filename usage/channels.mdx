@@ -3,103 +3,61 @@ title: "消息通道集成"
 description: "将 Tram 连接到 Telegram、Discord 等消息平台，通过聊天界面与 AI 智能体交互。"
 ---
 
-Tram 支持通过消息通道（Channel）连接到各种聊天平台，让你可以通过熟悉的聊天界面与 AI 智能体交互。
+通道让 Tram 可以接入 Telegram、微信、钉钉、WebSocket 等消息平台。你可以把它理解成“让 Tram 在聊天软件里工作”。
 
-## 支持的通道
+## 你可以控制什么
 
-Tram 支持多种消息平台，包括但不限于：
+通道的配置保存在 `channels` 下面。每个通道通常会包含这些可控项：
 
-- **Telegram** — 通过 Telegram Bot 与 Tram 交互
-- **Discord** — 将 Tram 集成到 Discord 服务器
-- **其他平台** — 通过扩展支持更多平台
+- `type`：通道类型。
+- `token`、`clientId`、`clientSecret`：认证凭据。
+- `senderPolicy`、`allowedUsers`：谁能发消息。
+- `sessionScope`：会话保存在哪个作用域。
+- `cwd`：通道启动时使用的工作目录。
+- `approvalMode`：通道侧的工具审批方式。
+- `instructions`：给模型的通道特定说明。
+- `model`：通道使用的模型。
+- `groupPolicy`、`groups`：群组消息的处理策略。
+
+如果你的凭据写成 `$ENV_NAME`，Tram 会从环境变量里读取真实值。
 
 ## 通道命令
 
-Tram 提供以下通道管理命令：
-
-### 初始化通道
-
-```bash
-tram channel initialize
-```
-
-初始化通道配置，设置必要的凭证和参数。
-
-### 启动通道服务
-
 ```bash
 tram channel start
-```
-
-启动通道服务，开始接收来自消息平台的请求。
-
-### 停止通道服务
-
-```bash
+tram channel start <name>
 tram channel stop
-```
-
-停止通道服务。
-
-### 查看通道状态
-
-```bash
 tram channel status
+tram channel pairing list <name>
+tram channel pairing approve <name> <code>
+tram channel initialize [name] --type <type>
+tram channel configure-weixin
+tram channel configure-weixin status
+tram channel configure-weixin clear
 ```
 
-查看当前通道服务的运行状态。
+`tram channel start` 不带名字时会启动所有已配置通道。带名字时只启动一个通道。
 
-### 配置通道
+`tram channel initialize` 会打开本地网页配置流程，适合首次创建或修改通道配置。它还有一个别名 `web-config`。
 
-```bash
-tram channel configure
-```
+`tram channel configure-weixin` 用于微信通道的二维码登录、状态查看和清除凭据。
 
-配置通道参数，如 API 密钥、Webhook URL 等。
+## 配对请求
 
-### 管理配对请求
+`tram channel pairing list <name>` 会显示等待批准的配对请求。`tram channel pairing approve <name> <code>` 可以批准某个请求，让对应用户接入通道。
 
-```bash
-# 列出所有配对请求
-tram channel pairing list
+## 启动和停止
 
-# 批准配对请求
-tram channel pairing approve <request-id>
-```
+`tram channel status` 会显示当前服务是否在运行，以及每个通道当前关联了多少会话。`tram channel stop` 会优雅停止服务，必要时会再发一次强制结束信号。
 
-## Telegram 通道设置
+## 运行时行为
 
-1. 创建 Telegram Bot：
-   - 与 [@BotFather](https://t.me/BotFather) 对话
-   - 发送 `/newbot` 并按照提示操作
-   - 获取 Bot Token
-
-2. 配置 Tram：
-   ```bash
-   tram channel configure
-   ```
-   输入你的 Telegram Bot Token。
-
-3. 启动通道：
-   ```bash
-   tram channel start
-   ```
-
-4. 在 Telegram 中与你的 Bot 对话，开始使用 Tram。
-
-## Discord 通道设置
-
-1. 创建 Discord Bot：
-   - 访问 [Discord Developer Portal](https://discord.com/developers/)
-   - 创建新应用并添加 Bot
-   - 获取 Bot Token 并邀请 Bot 到服务器
-
-2. 配置并启动 Tram 通道服务。
+通道服务启动后，会加载已经启用的扩展，并把扩展里提供的通道类型一起注册进来。它也会读取代理设置，所以如果你在公司网络里工作，可以继续使用系统代理或环境变量代理。
 
 <Tip>
-  通道服务运行时，Tram 会在后台监听消息。你可以通过 `tram channel status` 检查服务状态。
+   最稳妥的做法是先用 `tram channel status` 确认服务没有残留进程，再重新启动通道服务。
 </Tip>
 
 <Note>
-  通道功能需要有效的 API 密钥和相应的平台凭证。请妥善保管你的 Bot Token 和配置文件。
+   通道会直接接触外部聊天平台和项目上下文。请只给可信的用户开放，并认真检查每个通道的 `allowedUsers` 和认证信息。
 </Note>

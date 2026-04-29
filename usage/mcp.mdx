@@ -3,86 +3,64 @@ title: "MCP 服务器管理"
 description: "使用 Model Context Protocol (MCP) 扩展 Tram 的能力，连接外部工具和数据源。"
 ---
 
-Tram 支持 [Model Context Protocol (MCP)](https://modelcontextprotocol.io/)，允许你连接外部工具和数据源，扩展 AI 智能体的能力。
+MCP 让 Tram 可以连接外部工具和数据源。你可以把它理解成“给 Tram 增加新工具箱”的方式。
 
-## 什么是 MCP
-
-MCP 是一个开放协议，用于标准化 AI 应用与外部工具、数据源之间的通信。通过 MCP，Tram 可以：
-
-- 访问外部 API 和服务
-- 读取本地或远程数据源
-- 使用专门的工具来完成任务
-
-## MCP 命令
-
-Tram 提供以下 MCP 服务器管理命令：
-
-### 添加 MCP 服务器
+## 你可以控制的命令
 
 ```bash
-tram mcp add <server-name> --command "node path/to/server.js"
-```
-
-添加一个 MCP 服务器。你需要指定服务器名称和启动命令。
-
-示例：
-
-```bash
-tram mcp add filesystem --command "npx -y @modelcontextprotocol/server-filesystem /path/to/allowed/dir"
-```
-
-### 列出已配置的 MCP 服务器
-
-```bash
+tram mcp add <name> <commandOrUrl> [args...]
 tram mcp list
-```
-
-查看所有已配置的 MCP 服务器及其状态。
-
-### 移除 MCP 服务器
-
-```bash
-tram mcp remove <server-name>
-```
-
-从配置中移除指定的 MCP 服务器。
-
-### 重新连接 MCP 服务器
-
-```bash
+tram mcp remove <name>
 tram mcp reconnect <server-name>
+tram mcp reconnect --all
 ```
 
-重新连接指定的 MCP 服务器，用于服务器断开或更新配置后。
+`tram mcp add` 是最常用的入口。它支持三类接入方式：
 
-## 在交互模式中使用 MCP
+1. `stdio`：传入一个启动命令。
+2. `sse`：传入一个 SSE 地址。
+3. `http`：传入一个 HTTP 地址。
 
-在交互模式中，MCP 服务器会自动连接并提供工具给智能体使用。你可以：
+如果你传的是 `http://` 或 `https://`，Tram 会自动按 HTTP 方式识别；你也可以用 `--transport` 显式指定。
 
-1. 启动 Tram 交互模式：
-   ```bash
-   tram
-   ```
+## `tram mcp add` 的常用参数
 
-2. 智能体会自动发现和使用已配置的 MCP 服务器提供的工具。
+```bash
+tram mcp add filesystem "npx -y @modelcontextprotocol/server-filesystem /path/to/allowed/dir"
+tram mcp add my-server https://example.com/mcp --transport http
+```
 
-## 常用 MCP 服务器
+可控参数包括：
 
-以下是一些常用的 MCP 服务器：
+- `--scope user|project`：决定写到用户配置还是项目配置。
+- `--env KEY=value`：给 stdio 服务器注入环境变量。
+- `-H "Header: value"`：给 SSE/HTTP 服务器加请求头。
+- `--timeout`：连接超时。
+- `--trust`：跳过工具调用确认。
+- `--description`：给服务器加说明。
+- `--include-tools` / `--exclude-tools`：按工具名筛选暴露范围。
+- `--ref`、`--auto-update`、`--pre-release`、`--registry` 只在特定来源类型下有效。
 
-- **Filesystem** — 提供文件系统访问能力
-- **Web Fetch** — 获取网页内容
-- **Database** — 连接和操作数据库
-- **Git** — Git 仓库操作
+如果你要给 stdio 命令传额外参数，可以把 `--` 后面的内容直接附给服务器命令。
 
-## 配置示例
+## 列表和重连
 
-MCP 服务器配置存储在 Tram 的配置文件中。你可以通过编辑配置文件或命令行工具来管理。
+`tram mcp list` 会显示每个服务器的连接状态。`tram mcp reconnect <server-name>` 可以重新发现某个服务器的工具，`tram mcp reconnect --all` 则会全部重连。
+
+## 配置位置和作用域
+
+MCP 服务器会保存到 Tram 的设置里。用户级配置适合全局复用，项目级配置适合只让当前仓库使用。
+
+如果你删除了某个 MCP 服务器，Tram 也会尽量清理对应的 OAuth 凭证。
+
+## 在交互模式里使用
+
+在会话里输入 `/mcp` 可以直接打开管理界面。配置好以后，Tram 会自动把这些服务器提供的工具带进会话里。
 
 <Tip>
-  添加 MCP 服务器后，重启 Tram 会话以使更改生效。
+  改完 MCP 配置后，通常重开一次会话最稳妥。这样可以确保新的工具定义已经被重新加载。
 </Tip>
 
 <Note>
-  确保你信任并了解 MCP 服务器的功能。某些服务器可能需要额外的权限或访问敏感数据。
+  MCP 服务器会接触你的项目文件和外部服务。只连接你信任的服务器，并确认它们暴露出来的工具范围。
 </Note>

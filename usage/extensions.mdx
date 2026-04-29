@@ -3,115 +3,76 @@ title: "扩展管理"
 description: "使用扩展来增强 Tram 的功能，安装、管理和创建自定义扩展。"
 ---
 
-Tram 支持扩展系统，允许你通过安装扩展来增强智能体的能力。
+扩展可以给 Tram 增加新命令、外部服务、工具和消息通道。只要你安装了扩展，Tram 就会把它提供的能力合并进当前会话。
 
-## 什么是扩展
-
-扩展是 Tram 的插件，可以：
-
-- 添加新的命令和功能
-- 集成外部服务和工具
-- 自定义智能体的行为
-- 添加对新消息通道的支持
-
-## 扩展命令
-
-Tram 提供以下扩展管理命令：
-
-### 列出已安装的扩展
+## 你可以控制的命令
 
 ```bash
 tram extensions list
+tram extensions install <source>
+tram extensions uninstall <name>
+tram extensions update <name>
+tram extensions update --all
+tram extensions enable <name>
+tram extensions disable <name>
+tram extensions link <path>
+tram extensions new <path> [template]
+tram extensions settings list <name>
+tram extensions settings set <name> <setting>
 ```
 
-查看所有已安装的扩展及其状态。
+## 安装来源
 
-### 安装扩展
+`tram extensions install` 支持这些来源：
+
+1. Git 仓库地址。
+2. 本地路径。
+3. scoped npm 包。
+4. marketplace 扩展来源。
+
+常见参数包括：
+
+- `--ref`：指定 git ref。
+- `--auto-update`：启用自动更新。
+- `--pre-release`：允许预发布版本。
+- `--registry`：指定 npm registry。
+- `--consent`：跳过安装确认。
+
+## 启用、禁用和作用域
+
+`tram extensions enable` 和 `tram extensions disable` 都支持作用域控制。你可以按 `user` 或 `workspace` 处理某个扩展，而不是一次改掉所有地方。
+
+## 本地开发
+
+如果你在开发自己的扩展，可以先创建模板：
 
 ```bash
-tram extensions install <extension-name>
+tram extensions new ./my-extension
+tram extensions link ./my-extension
 ```
 
-从扩展仓库安装指定的扩展。
+`new` 支持选择模板；`link` 会把本地目录链接进 Tram，方便你在改代码时立即测试。
 
-### 卸载扩展
+## 扩展设置
 
-```bash
-tram extensions uninstall <extension-name>
-```
+`tram extensions settings list <name>` 会列出扩展可配置的项。`tram extensions settings set <name> <setting>` 可以设置单个值，并支持 `--scope user|workspace`。
 
-移除已安装的扩展。
+## 在交互模式里使用
 
-### 更新扩展
+在会话里输入 `/extensions` 可以打开管理界面。你也可以用 `/extensions explore Gemini` 或 `/extensions explore ClaudeCode` 去看扩展市场。
 
-```bash
-tram extensions update <extension-name>
-```
+## 扩展还能做什么
 
-更新扩展到最新版本。
+扩展不只会增加命令。它们还可以：
 
-### 启用/禁用扩展
-
-```bash
-# 启用扩展
-tram extensions enable <extension-name>
-
-# 禁用扩展
-tram extensions disable <extension-name>
-```
-
-### 链接本地扩展
-
-```bash
-tram extensions link <path-to-extension>
-```
-
-用于开发扩展时，将本地扩展目录链接到 Tram。
-
-### 创建新扩展
-
-```bash
-tram extensions new <extension-name>
-```
-
-创建一个新的扩展模板，用于开始开发自己的扩展。
-
-### 扩展设置
-
-```bash
-tram extensions settings <extension-name>
-```
-
-配置指定扩展的设置。
-
-## 在交互模式中使用扩展
-
-在交互模式中，你可以使用 `/extensions` 命令来管理扩展，或者使用简写 `/ext`。
-
-## 扩展配置文件
-
-扩展使用 `qwen-extension.json` 文件来描述其功能和配置。
-
-## 开发自己的扩展
-
-1. 创建扩展模板：
-   ```bash
-   tram extensions new my-extension
-   ```
-
-2. 编辑扩展代码和配置。
-
-3. 链接到 Tram 进行测试：
-   ```bash
-   tram extensions link ./my-extension
-   ```
-
-4. 在 Tram 中测试你的扩展。
+- 提供新的 MCP 服务器。
+- 提供新的消息通道类型。
+- 带来额外设置项和默认值。
 
 <Tip>
-  使用 `tram extensions list` 查看所有已安装的扩展及其状态。已禁用的扩展会标记为 "disabled"。
+  先用 `tram extensions list` 看清楚当前启用了什么，再决定是否更新、禁用或卸载。
 </Tip>
 
 <Note>
-  只从可信来源安装扩展。扩展可以访问你的项目文件和配置，请确保你了解扩展的功能。
+  只安装你信任的扩展。扩展可以访问项目文件、配置和网络能力，所以要像审核依赖一样审核它们。
 </Note>

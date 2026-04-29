@@ -5,6 +5,18 @@ description: "修复最常见的 Tram 问题：命令未找到、Node.js 版本�
 
 以下是你在安装或运行 Tram 时可能遇到的最常见问题的解决方案。请查看相关部分以快速解决你的问题。
 
+## 先检查这些状态命令
+
+在排查前，先确认当前状态没有已经显而易见的问题：
+
+- `tram auth status`
+- `tram mcp list`
+- `tram extensions list`
+- `tram channel status`
+- `/arena status`
+
+这些命令可以帮你快速判断问题是出在认证、扩展、MCP、通道，还是 Arena 会话本身。
+
 <AccordionGroup>
   <Accordion title='"tram: command not found"'>
     此错误表示 npm 安装全局二进制文件的目录未包含在系统的 `PATH` 中。运行 `npm install -g @tram-ai/tram@latest` 后，你的 shell 无法找到 `tram` 可执行文件。
@@ -70,11 +82,17 @@ description: "修复最常见的 Tram 问题：命令未找到、Node.js 版本�
     修复方法：
 
     1. 登录你的 AI 模型提供商仪表板，验证 API 密钥处于活动状态且未过期。
-    2. 准确复制密钥——避免尾随空格或缺少字符。
-    3. 重新运行 Tram 设置以替换已存储的密钥：
+    2. 准确复制密钥，避免尾随空格或缺少字符。
+    3. 重新运行认证向导：
 
     ```bash
-    tram
+    tram auth
+    ```
+
+    如果你用的是 Coding Plan，可以直接重新执行：
+
+    ```bash
+    tram auth coding-plan
     ```
 
     按照提示输入更正后的 API 密钥。
@@ -123,10 +141,16 @@ description: "修复最常见的 Tram 问题：命令未找到、Node.js 版本�
     - **检查网络延迟** — 缓慢或不稳定的连接会增加到提供商 API 的往返时间。
     - **检查提供商负载** — 一些提供商的响应时间会因需求而变化。如果缓慢持续，请查阅提供商的状态页面。
 
-    要更改模型，重新运行 Tram 设置并在提示时选择不同的选项：
+    要更改模型，可以直接在会话里切换：
 
     ```bash
-    tram
+    /model
+    ```
+
+    如果你想把更快的模型单独保留给提示建议，可以用：
+
+    ```bash
+    /model --fast <model>
     ```
   </Accordion>
 </AccordionGroup>

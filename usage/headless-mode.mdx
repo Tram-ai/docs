@@ -3,15 +3,22 @@ title: "使用 -p 标志的无头模式用于脚本编写"
 description: "使用 -p 标志以非交互方式运行 Tram。直接在命令行传递提示，获取可以管道传输、重定向或在 shell 脚本中使用的输出。"
 ---
 
-无头模式让你无需启动交互式会话即可运行 Tram。使用 `-p` 标志直接传递提示，Tram 执行任务，将结果输出到 stdout，然后退出。这使得在 shell 脚本、CI 管道或任何需要从命令行获取一次性 AI 响应的场景中使用 Tram 变得简单。
+无头模式适合脚本、CI 和一次性任务。你把提示直接传给 Tram，Tram 处理完后把结果写到标准输出并退出。
 
 ## 语法
 
 ```bash
-tram -p "<your prompt>"
+tram -p "你的提示"
 ```
 
-## 示例
+## 你可以拿它做什么
+
+无头模式很适合这些场景：
+
+- 生成测试、README、迁移说明或重构建议。
+- 在 CI 里生成发布摘要。
+- 把 Tram 的输出继续交给其他命令处理。
+- 在脚本里保存结果，或把结果重定向到文件。
 
 ```bash
 tram -p "Explain the main entry point of this project"
@@ -19,41 +26,24 @@ tram -p "List all exported functions in src/index.ts"
 tram -p "Summarize the recent changes in CHANGELOG.md"
 ```
 
-## 使用场景
-
-**Shell 别名** — 封装你经常运行的常见查询：
+## 常见组合方式
 
 ```bash
-alias explain-entry='tram -p "Explain the main entry point of this project"'
-```
-
-**CI 脚本** — 作为管道步骤的一部分生成摘要：
-
-```bash
-#!/bin/bash
 tram -p "Summarize the changes in CHANGELOG.md" > release-notes.txt
-```
-
-**管道输出** — 将 Tram 的响应传递给其他工具：
-
-```bash
 tram -p "List all TODO comments in the src/ directory" | grep "FIXME"
-```
-
-**输出重定向** — 将 Tram 的响应保存到文件以供后续查看：
-
-```bash
 tram -p "Write a README for the src/utils/ module" > src/utils/README.md
 ```
 
+如果你希望脚本拿到结构化结果，可以把 `output.format` 设为 `json`。这样更适合自动化管道和后续解析。
+
+## 和交互模式的区别
+
+无头模式不会打开会话界面，也不适合需要你当场选择结果的流程，比如 Arena 的对比和选中结果。那些场景请继续使用交互模式。
+
 ## 退出行为
 
-Tram 在任务完成后立即退出。进程退出码成功时为 `0`，这使得在脚本中链接命令或检查结果变得简单：
-
-```bash
-tram -p "Check if there are any syntax errors in src/index.ts" && echo "Looks good"
-```
+Tram 任务完成后会直接退出。成功时退出码通常为 `0`，这让你可以很方便地在 shell 里串联命令。
 
 <Note>
-  无头模式需要在使用前完成身份验证配置。身份验证在首次以交互模式运行 `tram` 时设置。先运行 `tram` 并按照提示操作，然后你就可以在任何后续命令或脚本中使用 `-p`。
+  无头模式仍然依赖你已经完成认证。先用交互模式运行一次 `tram` 并完成登录，然后再在脚本里使用 `-p`。
 </Note>

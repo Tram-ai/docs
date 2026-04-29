@@ -3,46 +3,54 @@ title: "使用 Tram 探索你的代码库"
 description: "使用 Tram 快速理解大型代码库。询问项目结构、追踪数据流、定位逻辑，获取对陌生代码的自然语言解释。"
 ---
 
-Tram 的主要用例之一是帮助你快速导航和理解大型代码库。你无需手动追踪调用栈或在文件中 grep 搜索，而是可以用自然语言向 Tram 提问并获得专注、相关的答案——一切都无需离开终端。
+Tram 的代码库探索能力主要依赖两件事：当前工作目录，以及你在问题里主动附带的路径。你不需要手动复制文件内容，直接把路径写进提示里就行。
 
-## 常见探索提示
+## 最直接的用法
 
-以下是 Tram 能够很好处理的问题类型示例：
-
-**了解整体结构：**
-```
-Explain the overall structure of this project
+```text
+解释 @src/index.ts 的启动流程。
 ```
 
-**了解特定类或服务的功能：**
-```
-What does the `UserService` class do?
+```text
+比较 @src/server/ 和 @src/worker/ 的职责差异。
 ```
 
-**定位特定逻辑：**
-```
+你也可以把目录直接附加进去，让 Tram 自动读取目录内容并结合上下文回答。
+
+## 你可以控制什么
+
+Tram 在读取代码时会遵循这些规则：
+
+1. 只读取工作区里的路径，或者项目临时目录里的路径。
+2. 默认会尊重 `.gitignore` 和 `.tramignore`，具体行为由配置决定。
+3. 路径里有空格时可以用反斜杠转义。
+4. 你可以一次提多个路径，Tram 会一起纳入上下文。
+
+## 适合的提问方式
+
+下面这些问题通常能得到更好的回答：
+
+```text
+Explain the overall structure of this project.
+What does the UserService class do?
 Where is the authentication logic handled?
+Show me how data flows from the API to the database.
 ```
 
-**追踪数据流：**
-```
-Show me how data flows from the API to the database
-```
+更好的做法是直接点名文件、函数或目录：
 
-## 获得更好答案的技巧
+- `src/services/email.ts` 里发生了什么？
+- `src/middleware/errors.ts` 是怎么处理错误的？
+- `src/routes/` 下面哪个文件负责鉴权？
 
-- **直接引用名称。** 像"'src/services/email.ts' 做了什么？"这样的提示给 Tram 提供了明确的目标，比含糊的问题能得到更精确的答案。
-- **缩小范围。** "解释 `src/middleware/errors.ts` 中的错误处理"比"解释所有错误处理"更有用。
-- **提出后续问题。** 在交互模式中，你可以在单个会话内逐步深化理解。
+## 让结果更准的设置
 
-## Tram 如何读取你的项目
-
-Tram 从你的当前工作目录开始工作。当你运行 `tram` 时，它会相对于该目录读取文件来回答你的问题。你不需要配置文件路径或告诉 Tram 项目在哪里——它会自动使用你 shell 的工作目录。
+如果你经常做代码阅读，可以在配置里把更多目录放进 `context.includeDirectories`。如果你不想让 Tram 读某些目录，可以继续用 `.gitignore`、`.tramignore` 和文件过滤设置控制。
 
 <Tip>
-  从项目的根目录运行 `tram`。从根目录启动可以让 Tram 访问完整的项目树，这样它就能回答跨多个文件或目录的问题。
+  从项目根目录运行 `tram`，然后在提示里直接引用路径。这样 Tram 能看到最完整的上下文，尤其适合跨文件分析。
 </Tip>
 
 <Info>
-  Tram 读取你的本地文件来回答问题，但你的代码不会被存储或索引到任何地方。你代码的唯一传输是包含在发送到你配置的 AI 模型提供商的 API 调用中的内容——即你在设置期间进行身份验证的同一个提供商。
+  Tram 只会把你主动提供的上下文发送给模型提供商。它不会替你把整个仓库上传到任何地方。
 </Info>

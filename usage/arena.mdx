@@ -3,60 +3,54 @@ title: "Arena 多智能体协作"
 description: "使用 Arena 功能同时运行多个 AI 智能体，对比不同模型的结果，选择最佳方案。"
 ---
 
-Arena 是 Tram 的高级功能，允许你同时运行多个 AI 智能体来处理同一个任务。每个智能体在独立的 Git worktree 环境中工作，你可以对比它们的结果并选择最佳方案。
+Arena 会让多个模型同时处理同一个任务，并把结果放到独立的 Git worktree 里。它适合你想对比不同实现、不同风格或不同提供商结果的时候。
 
-## 什么是 Arena
+## 你可以控制什么
 
-Arena 通过以下方式帮助你获得更好的结果：
+最核心的命令是：
 
-- **并行执行** — 多个智能体同时处理同一任务
-- **环境隔离** — 每个智能体在独立的 Git worktree 中工作，互不干扰
-- **结果对比** — 直观对比不同智能体的输出，选择最符合你需求的方案
-
-## 启动 Arena 会话
-
-在交互模式下，使用 `/arena` 命令启动 Arena 会话：
-
-```
-/arena 为这个项目生成一个 README 文件
+```text
+/arena start --models qwen3-coder,qwen3-coder-flash "refactor the auth flow"
+/arena start --models openai:gpt-4o,anthropic:claude-3 "implement sorting"
+/arena status
+/arena select
+/arena select --discard
+/arena stop
 ```
 
-Tram 会启动多个智能体，每个智能体使用不同的配置或模型来处理你的任务。
+`/arena start` 至少要传两个模型。模型可以直接写成 `modelId`，也可以写成 `authType:modelId`。如果你不指定 `authType`，Arena 会使用当前会话的默认认证类型。
 
-## Arena 工作原理
+如果你只输入 `/arena` 或 `/arena start`，Tram 会打开交互式对话框，让你在 UI 里选择任务和模型。
 
-1. **任务分发** — Arena 管理器接收你的任务描述
-2. **环境准备** — 为每个智能体创建独立的 Git worktree
-3. **并行执行** — 多个智能体同时处理任务
-4. **结果收集** — Arena 收集所有智能体的输出
-5. **结果展示** — 你可以查看和对比各个智能体的结果
+## 结果怎么选
 
-## Arena 事件
+当 Arena 跑完后，你可以：
 
-Arena 会发射以下事件，你可以在 UI 中观察进度：
+1. 用 `/arena status` 查看当前状态。
+2. 用 `/arena select` 打开选择界面。
+3. 直接输入 `/arena select <modelId>`，把某个成功结果应用回当前工作区。
+4. 用 `/arena select --discard` 丢弃结果并清理 worktree。
+5. 用 `/arena stop` 手动结束当前会话。
 
-- **会话开始** — Arena 会话已启动
-- **智能体完成** — 单个智能体完成任务
-- **会话结束** — 所有智能体完成工作
+## Arena 的可调设置
 
-## 查看 Arena 状态
+你还可以在配置里控制 Arena 的行为：
 
-在交互模式中，Arena 会实时显示每个智能体的状态：
+- `agents.arena.worktreeBaseDir`：Arena worktree 的基础目录。
+- `agents.arena.preserveArtifacts`：是否保留 worktree 和会话状态。
+- `agents.arena.maxRoundsPerAgent`：每个智能体的最大轮次。
+- `agents.arena.timeoutSeconds`：整个 Arena 会话的总超时。
 
-- **运行中** — 智能体正在处理任务
-- **已完成** — 智能体成功完成任务
-- **失败** — 智能体遇到错误
+## 适合的场景
 
-## 使用建议
-
-- **复杂任务** — Arena 特别适合需要对比多种解决方案的复杂任务
-- **代码生成** — 让多个智能体生成不同实现的代码，选择最佳版本
-- **重构决策** — 对比不同的重构方案
+- 你想比较多个模型对同一段代码的修改。
+- 你想让不同模型生成不同方案，再从中选一个。
+- 你希望在重要重构前先看多个答案，再决定方向。
 
 <Tip>
-  Arena 需要 Git 仓库才能正常工作，因为它使用 Git worktree 创建隔离环境。确保你的项目已初始化 Git 仓库。
+  Arena 只适合交互模式。它需要你能看到 UI、对比结果并手动选择最终方案。
 </Tip>
 
 <Note>
-  Arena 功能需要消耗更多的 API 配额，因为多个智能体会同时处理任务。请注意你的 API 使用量。
+  Arena 会比普通会话消耗更多资源，因为多个模型会同时工作。开始前先确认你的配额和运行时间预算。
 </Note>
