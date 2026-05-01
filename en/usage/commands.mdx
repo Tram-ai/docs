@@ -1,0 +1,91 @@
+---
+title: "Command reference"
+description: "See Tram's top-level commands, common global flags, and the most frequently used ways to launch it."
+---
+
+If you want a quick look at what Tram can do, the most direct entry point is `tram --help`.
+
+```bash
+tram --help
+```
+
+This shows Tram's top-level commands and common flags. You can also check the version:
+
+```bash
+tram --version
+```
+
+## Top-level usage
+
+There are three basic ways to launch Tram:
+
+```bash
+tram
+tram -p "your prompt"
+tram -i "your prompt"
+```
+
+`tram` opens an interactive session. `tram -p` runs a single prompt and exits. `tram -i` runs a prompt first and then stays in interactive mode.
+
+## Common global flags
+
+These are the parameters you'll most often control yourself:
+
+- `-p, --prompt`: One-shot prompt.
+- `-i, --prompt-interactive`: Run a prompt first, then enter an interactive session.
+- `-m, --model`: Specify the model to use for the current run.
+- `-c, --continue`: Resume the most recent session for the current project.
+- `-r, --resume <sessionId>`: Resume a specific session.
+- `--session-id <uuid>`: Set the session ID for this run.
+- `-s, --sandbox`: Enable sandbox mode.
+- `--sandbox-image`: Specify the sandbox image.
+- `--approval-mode`: Set the tool approval mode. Available values are `plan`, `default`, `auto-edit`, and `yolo`.
+- `-y, --yolo`: Quickly enter fully automatic mode, equivalent to `--approval-mode=yolo`.
+- `--input-format`: Input format, commonly used in streaming JSON scenarios.
+- `-o, --output-format`: Output format. Supports `text`, `json`, and `stream-json`.
+- `--include-partial-messages`: Include unfinished messages in `stream-json` output.
+- `--initialize`: Open the initialization wizard directly.
+- `--auth-type`: Explicitly specify the authentication type.
+- `--allowed-tools` / `--exclude-tools`: Control the allowed tool scope.
+- `--allowed-mcp-server-names`: Restrict the available MCP servers.
+- `--include-directories`: Additional directories to include in the workspace context.
+- `--channel`: Specify the run channel, such as `VSCode`, `ACP`, `SDK`, or `CI`.
+
+## Top-level commands
+
+In addition to running `tram` directly, you can use these user-facing commands:
+
+```bash
+tram auth
+tram mcp
+tram extensions
+tram channel
+```
+
+They handle authentication, MCP server management, extension management, and message channel management, respectively.
+
+## Most common combinations
+
+```bash
+tram
+tram -p "Explain this project"
+tram -p "Summarize @src/index.ts"
+tram -c
+tram -r 123e4567-e89b-12d3-a456-426614174000
+tram auth status
+tram mcp list
+tram extensions list
+tram channel status
+```
+
+## When to use which entry point
+
+- If you want to interact and ask questions live, use `tram` directly.
+- If you want to run things in scripts, use `tram -p`.
+- If you want to resume a previous session, use `-c` or `-r`.
+- If you want to manage external capabilities, use `auth`, `mcp`, `extensions`, or `channel`.
+- If you want to quickly confirm commands and arguments, run `tram --help` first.
+
+<Note>
+  If you only remember one command, remember `tram --help`. It tells you which entry points and flags the current version supports.
+</Note>

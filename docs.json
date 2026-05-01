@@ -105,6 +105,7 @@
           {
             "group": "Usage",
             "pages": [
+              "en/usage/commands",
               "en/usage/interactive-mode",
               "en/usage/headless-mode",
               "en/usage/codebase-exploration",
